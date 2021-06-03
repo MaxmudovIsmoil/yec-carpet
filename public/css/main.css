@@ -1,0 +1,539 @@
+
+
+/* rooms */
+.room-form-edit input {
+    border-radius: 0px;
+}
+.room-form-edit .custom-file-label {
+    border-radius: 0px;
+}
+/* ./room */
+
+/** ############################ ./Catalog ################################### **/
+
+.btnAdd{
+    margin-left: 50%;
+}
+
+.sub-category-btn{
+    overflow-x: scroll;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.sub-category-btn .btn{
+    margin-bottom: 10px;
+    /*display: flex;*/
+    display: block;
+    width: 140%;
+}
+
+/* width */
+.sub-category-btn::-webkit-scrollbar {
+    width: 10px;
+    padding-top: 5px;
+}
+
+/* Track */
+.sub-category-btn::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+.sub-category-btn::-webkit-scrollbar-thumb {
+    background: #a4d6a4;
+    border-radius: 10px;
+}
+
+/* All catalogs */
+.all-catalogs{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* One catalog */
+.catalog{
+    display: flex;
+    margin-bottom: 22px;
+    padding: 0px;
+    width: 48.5%;
+    border: 1px solid lightgray;
+}
+
+.catalog:nth-child(odd) {
+    margin-right: 1%;
+}
+.catalog:nth-child(even) {
+    margin-left: 1.5%;
+}
+
+.catalog img{
+    width: 60%;
+}
+
+.catalog .table-btns {
+    width: 40%;
+    background: #d0e9f1c7;
+    padding: 10px 10px 10px 12px;
+}
+
+.catalog .table-btns .table {
+    margin-bottom: 20px;
+    width: 160px;
+}
+
+.catalog .table-btns .table tr:first-child td {
+    border-top: none;
+}
+
+.catalog .table-btns .table tr td{
+    border-color: #9088d8;
+    padding: 8px;
+    padding-left: 0px;
+}
+
+.catalog .table-btns .table tr td:last-child{
+    font-weight: 500;
+}
+
+.catalog .edit-delete-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) and (max-width: 1300px) {
+
+    body{
+        background: red !important;
+    }
+
+    /* One catalog */
+    .catalog{
+        margin-bottom: 22px;
+        width: 48.5%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1%;
+    }
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img{
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 10px 10px 10px 12px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 10px;
+        width: 150px;
+    }
+
+    .catalog .table-btns .table tr td{
+        padding: 5px;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+
+    body{
+        background: green !important;
+    }
+    /* One catalog */
+    .catalog{
+        width: 48%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img{
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 10px;
+        width: 140px;
+    }
+
+    .catalog .table-btns .table tr td{
+        padding: 5px;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+
+    body{
+        background: blue !important;
+    }
+    .btnAdd{
+        margin-left: 35%;
+    }
+    /* One catalog */
+    .catalog{
+        width: 48%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img{
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 10px;
+        width: 140px;
+    }
+
+    .catalog .table-btns .table tr td{
+        padding: 5px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1099px) {
+
+    body{
+        background: red !important;
+    }
+    .btnAdd{
+        margin-left: 30%;
+    }
+    /* One catalog */
+    .catalog{
+        width: 48%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img{
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 10px;
+        width: 120px;
+    }
+
+    .catalog .table-btns .table tr td{
+        padding: 5px;
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 991px) {
+
+    body{
+        background: purple !important;
+    }
+    .btnAdd{
+        margin-left: 62%;
+    }
+    /* One catalog */
+    .catalog{
+        width: 48%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img{
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 10px;
+        width: 160px;
+    }
+
+    .catalog .table-btns .table tr td{
+        padding: 5px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 899px) {
+
+    body{
+        background: orange !important;
+    }
+    .btnAdd{
+        margin-left: 55%;
+    }
+    /* One catalog */
+    .catalog{
+        width: 48%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img{
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 10px;
+        width: 130px;
+    }
+
+    .catalog .table-btns .table tr td{
+        padding: 5px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 899px) {
+
+    body {
+        background: yellow !important;
+    }
+
+    .btnAdd {
+        margin-left: 55%;
+    }
+
+    /* One catalog */
+    .catalog {
+        width: 48%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img {
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 3px;
+        width: 130px;
+    }
+
+    .catalog .table-btns .table tr td {
+        padding: 5px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 799px) {
+
+    body {
+        background: gray !important;
+    }
+
+    .btnAdd {
+        margin-left: 45%;
+    }
+
+    /* One catalog */
+    .catalog {
+        width: 48%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img {
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 3px;
+        width: 120px;
+    }
+
+    .catalog .table-btns .table tr td {
+        padding: 5px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 766px) {
+
+    body {
+        background: black !important;
+    }
+
+    .btnAdd {
+        margin-left: 10%;
+    }
+
+    /* One catalog */
+    .catalog {
+        width: 48%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog img {
+        width: 55%;
+    }
+
+    .catalog .table-btns {
+        width: 45%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 3px;
+        width: 120px;
+    }
+
+    .catalog .table-btns .table tr td {
+        padding: 5px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 699px) {
+
+    body {
+        background: red !important;
+    }
+
+    .btnAdd {
+        margin-left: 0%;
+    }
+
+    /* One catalog */
+    .catalog {
+        width: 100%;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 0%;
+    }
+
+    .catalog:nth-child(even) {
+        margin-left: 0%;
+    }
+
+    .catalog img {
+        width: 60%;
+    }
+
+    .catalog .table-btns {
+        width: 40%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 5px;
+        margin-left: 5px;
+        width: 180px;
+    }
+
+    .catalog .table-btns .table tr td {
+        padding: 10px;
+        font-size: 12px;
+    }
+}
+/** ############################ ./Catalog ################################### **/
+
+
+
+
+.dataTable-td-image a{
+    display: flex;
+    width: 140px !important;
+    height: 70px !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat;
+}
+
+
+/** room modal add room name and image **/
+#add-model form #message p{
+    color: red;
+    padding-bottom: 0px;
+    padding-top: 5px;
+    margin: 0px;
+}
+#add-model form #message span{
+    color: red;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    margin: 0px;
+}
+

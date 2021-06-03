@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $title = "Bosh sahifa";
+        return view('catalog.index', compact('title'));
     }
 }

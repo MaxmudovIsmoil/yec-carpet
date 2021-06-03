@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\apiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('api_room', [apiController::class, 'api_room']);
+
+Route::get('api_quality', [apiController::class, 'api_quality']);
+
+Route::get('api_product', [apiController::class, 'api_product']);
+

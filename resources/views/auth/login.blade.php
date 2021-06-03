@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-8 col-10">
             <div class="card-group">
                 <div class="card p-2">
                     <div class="card-body pt-2">
@@ -17,7 +17,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <svg class="c-icon">
-                                                <use xlink:href="{{'/icons/sprites/free.svg#cil-user'}}"></use>
+                                                <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-user') }}"></use>
                                             </svg>
                                         </span>
                                     </div>
@@ -36,7 +36,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <svg class="c-icon">
-                                                <use xlink:href="{{'/icons/sprites/free.svg#cil-lock-locked'}}"></use>
+                                                <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-lock-locked') }}"></use>
                                             </svg>
                                         </span>
                                     </div>
