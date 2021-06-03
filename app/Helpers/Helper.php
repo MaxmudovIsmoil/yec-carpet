@@ -5,7 +5,6 @@ namespace App\Helpers;
 
 class Helper {
 
-
     /**
      * Phone number formatting.
      *

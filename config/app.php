@@ -52,12 +52,12 @@ return [
     |
     */
 
-//    'url' => env('APP_URL', 'http://localhost/yec'),
+    'url' => env('APP_URL', 'http://yec.almirab.uz/'),
 
-    'url' => env('APP_URL', 'http://localhost'),
-    'asset_url' => env('ASSET_URL', null),
+//    'url' => env('APP_URL', 'http://localhost'),
+//    'asset_url' => env('ASSET_URL', null),
 
-//    'asset_url' => env('ASSET_URL', 'http://localhost/yec/public'),
+    'asset_url' => env('ASSET_URL', 'http://yec.almirab.uz/yec/public'),
 
     /*
     |--------------------------------------------------------------------------
