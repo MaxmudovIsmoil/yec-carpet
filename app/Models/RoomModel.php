@@ -16,7 +16,8 @@ class RoomModel extends Model
     protected $fillable = [
         'name',
         'image',
-        'created_date',
-        'update_date',
+        'changed',
+//        'created_date',
+//        'update_date',
     ];
 }

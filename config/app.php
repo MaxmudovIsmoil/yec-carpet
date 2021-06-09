@@ -52,12 +52,12 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://yec.almirab.uz/'),
+    'url' => env('APP_URL', 'http://localhost/yec-carpet/'),
 
 //    'url' => env('APP_URL', 'http://localhost'),
 //    'asset_url' => env('ASSET_URL', null),
 
-    'asset_url' => env('ASSET_URL', 'http://yec.almirab.uz/yec/public'),
+    'asset_url' => env('ASSET_URL', 'http://localhost/yec-carpet/public'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'uz',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'uz',
 
     /*
     |--------------------------------------------------------------------------

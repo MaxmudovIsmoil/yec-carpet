@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\QualityController;
+use App\Http\Controllers\TermPaymentController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -32,7 +33,7 @@ Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index
 
 Route::post('/catalog/ajax_add', [CatalogController::class, 'ajax_add'])->name('catalog.ajax_add');
 
-Route::post('/catalog/ajax_edit', [CatalogController::class, 'ajax_edit'])->name('catalog.ajax_edit');
+Route::post('/catalog/ajax_edit/{id}', [CatalogController::class, 'ajax_edit'])->name('catalog.ajax_edit');
 
 Route::delete('/catalog/destroy/{id}', [CatalogController::class, 'destroy'])->name('catalog.destroy');
 
@@ -63,6 +64,20 @@ Route::post('/quality/ajax_edit', [QualityController::class, 'ajax_edit'])->name
 Route::delete('/quality/destroy/{id}', [QualityController::class, 'destroy'])->name('quality.destroy');
 
 /******************* ./Quality **********************/
+
+
+/******************** Term payment ************************/
+
+Route::get('/termPayment', [TermPaymentController::class, 'index'])->name('termPayment.index');
+
+//Route::post('/termPayment/ajax_add', [QualityController::class, 'ajax_add'])->name('quality.ajax_add');
+
+//Route::post('/quality/ajax_edit', [QualityController::class, 'ajax_edit'])->name('quality.ajax_edit');
+//
+//Route::delete('/quality/destroy/{id}', [QualityController::class, 'destroy'])->name('quality.destroy');
+
+/******************* ./Term payment **********************/
+
 
 
 /******************** User ************************/

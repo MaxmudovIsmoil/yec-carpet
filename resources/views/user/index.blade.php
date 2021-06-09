@@ -144,37 +144,11 @@
                                                 </svg>
                                             </a>
 
-                                            <button type="button" class="btn btn-danger btn-square btn-sm" data-toggle="modal" data-target="#delete-model_{{$i}}" title="O'chirish" data-toggle="modal" data-target="#delete_notify">
+                                            <button type="button" data-url="{{ route('user.destroy', [$u['id']]) }}" data-name="{{ $u['first_name'] }}" class="btn btn-danger js_delete_btn btn-square btn-sm" title="O'chirish" data-toggle="modal" data-target="#delete_notify">
                                                 <svg class="c-icon c-icon-lg" title="O'chirish">
                                                     <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-trash') }}"></use>
                                                 </svg>
                                             </button>
-                                        </div>
-                                        {{-- Delete modal--}}
-                                        <div class="modal fade" id="delete-model_{{$i}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="delete-model_{{$i}}_Lavel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="delete-model_{{$i}}_Lavel">{{ $u['username'] }}</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body text-left">
-                                                        <p style="background: #f8d7da; color: darkred; padding: 5px 7px; border-radius: 5px;line-height: 1.5;">
-                                                            Barcha ma'lumotlar qayta tiklanmaydigan bo'lib o'chadi. Siz rosdan ham o'chirmoqchimisiz ?
-                                                        </p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary btn-square" data-dismiss="modal">Yo'q</button>
-                                                        <form action="{{ route('room.destroy', [$u['id']]) }}" method="POST">
-                                                            @csrf
-                                                            {{ method_field('DELETE') }}
-                                                            <input type="submit" value="Xa" class="btn btn-danger btn-square">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </td>
                                 </tr>

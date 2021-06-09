@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css{{ time() }}}" rel="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 {{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">--}}
 	<!-- icons -->
 
@@ -61,13 +64,22 @@
             </a>
         </li>
 
-        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'user' ) bg-primary @endif">
-            <a class="c-sidebar-nav-link @if( Request::segment(1) == 'user' ) text-white @endif" href="{{ route('user.index') }}">
+        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'termPayment' ) bg-primary @endif">
+            <a class="c-sidebar-nav-link @if( Request::segment(1) == 'termPayment' ) text-white @endif" href="{{ route('termPayment.index') }}">
                 <svg class="c-icon mr-2">
-                    <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-people') }}"></use>
-                </svg> <span>Hodimlar</span>
+                    <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-money') }}"></use>
+                </svg> <span>Muddatli to'lov</span>
             </a>
         </li>
+
+
+{{--        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'user' ) bg-primary @endif">--}}
+{{--            <a class="c-sidebar-nav-link @if( Request::segment(1) == 'user' ) text-white @endif" href="{{ route('user.index') }}">--}}
+{{--                <svg class="c-icon mr-2">--}}
+{{--                    <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-people') }}"></use>--}}
+{{--                </svg> <span>Hodimlar</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 
     </ul>
 </div>
@@ -79,7 +91,7 @@
                 <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-menu')}}"></use>
             </svg>
         </button>
-        <a class="c-header-brand d-lg-none" href="#">
+        <a class="c-header-brand mfe-sm-auto d-lg-none" href="#">
             <h2>{{ $title }}</h2>
         </a>
 
@@ -90,11 +102,11 @@
         </button>
 
 
-        <ul class="c-header-nav mfe-auto d-none d-lg-block">
-            <h2 class="text-right" style="width: 400px; margin-top: 10px ">{{ $title }}</h2>
+        <ul class="c-header-nav d-none d-lg-block">
+            <h2 class="text-right">{{ $title }}</h2>
         </ul>
 
-        <ul class="c-header-nav mfs-auto">
+        <ul class="c-header-nav">
             <div role="group" class="mb-0 form-group @if( Request::segment(1) == 'catalog' ) d-flex @else d-none @endif">
                 <input type="text" name="search" class="form-control form-control-sm header_search">
                 <input type="submit" value="Izlash" name="searchBtn" class="btn btn-sm btn-info ml-2">
@@ -105,41 +117,38 @@
                 <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"></a>
             </li>
 
-
             <li class="c-header-nav-item dropdown">
                 <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <div class="c-avatar">
-                        <img src="{{ asset('uploaded/yec.jpg') }}" alt="logo" width="100%" /> <span>user</span>
-                    </div>
+                    <span style="font-weight: 600; font-size: 18px;">{{ Auth::user()->username }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right pt-0">
-                    <div class="dropdown-header bg-light py-2"><strong>Settings</strong></div>
+                    <div class="dropdown-header bg-light py-2"><strong>Sozlamalar</strong></div>
                     <a class="dropdown-item" href="#">
                         <svg class="c-icon mfe-2">
                             <use xlink:href="{{asset('/icons/sprites/free.svg#cil-user')}}"></use>
-                        </svg> Profile
+                        </svg> Profil
                     </a>
-                    <a class="dropdown-item" href="#">
-                        <svg class="c-icon mfe-2">
-                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-settings') }}"></use>
-                        </svg> Settings
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <svg class="c-icon mfe-2">
-                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-credit-card') }}"></use>
-                        </svg> Payments<span class="badge badge-secondary mfs-auto">42</span>
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <svg class="c-icon mfe-2">
-                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-file')}}"></use>
-                        </svg> Projects<span class="badge badge-primary mfs-auto">42</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <svg class="c-icon mr-2">
-                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-task') }}"></use>
-                        </svg> Lock Account
-                    </a>
+{{--                    <a class="dropdown-item" href="#">--}}
+{{--                        <svg class="c-icon mfe-2">--}}
+{{--                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-settings') }}"></use>--}}
+{{--                        </svg> Settings--}}
+{{--                    </a>--}}
+{{--                    <a class="dropdown-item" href="#">--}}
+{{--                        <svg class="c-icon mfe-2">--}}
+{{--                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-credit-card') }}"></use>--}}
+{{--                        </svg> Payments<span class="badge badge-secondary mfs-auto">42</span>--}}
+{{--                    </a>--}}
+{{--                    <a class="dropdown-item" href="#">--}}
+{{--                        <svg class="c-icon mfe-2">--}}
+{{--                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-file')}}"></use>--}}
+{{--                        </svg> Projects<span class="badge badge-primary mfs-auto">42</span>--}}
+{{--                    </a>--}}
+{{--                    <div class="dropdown-divider"></div>--}}
+{{--                    <a class="dropdown-item" href="#">--}}
+{{--                        <svg class="c-icon mr-2">--}}
+{{--                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-task') }}"></use>--}}
+{{--                        </svg> Lock Account--}}
+{{--                    </a>--}}
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                        document.getElementById('logout-form').submit();">
@@ -152,11 +161,6 @@
                     </form>
                 </div>
             </li>
-            <button class="c-header-toggler c-class-toggler mfe-md-3" type="button" data-target="#aside" data-class="c-sidebar-show">
-                <svg class="c-icon c-icon-lg">
-                    <use xlink:href="{{ asset('/icons/svg/free.svg#cil-applications-settings') }}"></use>
-                </svg>
-            </button>
         </ul>
     </header>
 
@@ -200,9 +204,17 @@
 {{--fansy Box --}}
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 <script src="{{ asset('DataTables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('DataTables/js/dataTables.fixedColumns.min.js') }}"></script>
+
+{{--@if( (Request::segment(1) == 'room') || (Request::segment(1) == 'quality') )--}}
+{{--@endif--}}
+
+@include('layouts.deleteModal')
+
+<script src="{{ asset('js/functionDelete.js?'.time()) }}"></script>
 
 <script src="{{ asset('js/functions.js?'.time()) }}"></script>
 

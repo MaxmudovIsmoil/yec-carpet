@@ -43,7 +43,7 @@ class QualityController extends Controller
     {
         $validation =  Validator::make($request->all(), [
             'name'  => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'image' => 'required|image|mimes:jpeg,png,jpg,svg',
         ]);
 
         if ($validation->passes()) {
@@ -56,6 +56,7 @@ class QualityController extends Controller
                 QualityModel::create([
                     'name' => $request->post('name'),
                     'image' => $image_new_name,
+                    'changed'   => time(),
                 ]);
 
                 return response()->json([
@@ -88,46 +89,44 @@ class QualityController extends Controller
      */
     public function ajax_edit(Request $request)
     {
-        $validation =  Validator::make($request->all(), [
-            'name'  => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-        ]);
+        $image_name = $request->image_hidden;
+        $image = $request->file('image');
 
-        if ($validation->passes()) {
-            $image = $request->file('image');
-            $image_new_name = 'quality'.rand() .'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('uploaded/quality/'), $image_new_name);
+        if ($image != '') {
+            $rules = array(
+                'name'      => 'required|string',
+                'image' => 'required|image|mimes:jpeg,png,jpg,svg',
+            );
+            $error = Validator::make($request->all(), $rules);
 
-
-            try {
-                $id = $request->post('id');
-                $room = QualityModel::find($id);
-                $room->name = $request->post('name');
-                if ($image_new_name) {
-                    $room->image = $image_new_name;
-                }
-                $room->save();
-
-
-                return response()->json([
-                    'status' => 1,
-                    'message' => 'rasm yuklandi va bazaga yozildi',
-                ]);
-
-            } catch (\Exception $exception) {
-                return response()->json([
-                    'status' => 2,
-                    'message' => $exception,
-                ]);
+            if ($error->fails()) {
+                return response()->json(['error' => $error->errors()->all()]);
             }
+
+            $image_name = 'quality'.rand().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploaded/quality/'), $image_name);
 
         }
         else{
-            return response()->json([
-                'status' => 0,
-                'message' => $validation->errors()->all(),
-            ]);
+            $rules = array(
+                'name'      => 'required|string',
+            );
+            $error = Validator::make($request->all(), $rules);
+
+            if ($error->fails()) {
+                return response()->json(['error' => $error->errors()->all()]);
+            }
         }
+
+        $form_data = array(
+            'name'      => $request->name,
+            'image'     => $image_name,
+            'changed'   => time()
+        );
+
+        QualityModel::whereId($request->id)->update($form_data);
+
+        return response()->json(['success' => 'Data is successful updated']);
 
 
     }

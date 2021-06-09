@@ -16,7 +16,8 @@ class QualityModel extends Model
     protected $fillable = [
         'name',
         'image',
-        'description',
-        'created_date',
+        'changed',
+//        'created_at',
+//        'updated_at',
     ];
 }

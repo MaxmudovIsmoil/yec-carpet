@@ -33,6 +33,8 @@ $(document).ready(function() {
         let method = $(this).attr('method');
         let formData = new FormData(this);
 
+        console.log(123);
+
         $.ajax({
             type:method,
             url: url,
@@ -44,22 +46,27 @@ $(document).ready(function() {
                 if (response.status == 1)
                     location.reload();
 
-                $('#add-model .modal-body').css('padding-bottom','0px')
+                // $('#add-model .modal-body').css('padding-bottom','0px')
 
-                let span = $(document).find('.valid-feedback');
+                if (response.status == 0) {
 
-                var i = 0;
-                span.each(function() {
-                    $(this).addClass('d-block')
-                    $(this).html(response.message[i])
-                    i++
-                })
+                    let span = $(document).find('.valid-feedback');
 
-                $(document).find('.message').html(response.message[0]+'</span><span style="margin-left: 18%">'+response.message[1]+'</span>');
+                    var i = 0;
+                    span.each(function() {
+                        $(this).addClass('d-block')
+                        $(this).html(response.message[i])
+                        i++
+                    })
+
+                    $(document).find('.message').html(response.message[0]+'</span><span style="margin-left: 18%">'+response.message[1]+'</span>');
+
+                }
+                console.log(response)
 
             },
             error: (response) => {
-                console.log(response.message);
+                console.log(response);
             }
         });
     });
@@ -73,6 +80,36 @@ $(document).ready(function() {
         let url = $(this).attr('action');
         let method = $(this).attr('method');
         let formData = new FormData(this);
+
+        let inputs = $(this).find('input');
+        inputs.each(function () {
+
+            let val = $(this).val()
+            if (!val)
+                $(this).css('border', '1px solid red')
+        })
+        inputs.focusout(function () {
+            let val = $(this).val();
+            if (val)
+                $(this).css('border', '1px solid #0c900c')
+            else
+                $(this).css('border', '1px solid red')
+        })
+        let selects = $(this).find('select');
+
+        selects.each(function () {
+            let val = $(this).val()
+            if (!val)
+                $(this).css('border', '1px solid red')
+        })
+        selects.focusout(function () {
+            let val = $(this).val();
+            if (val)
+                $(this).css('border', '1px solid #0c900c')
+            else
+                $(this).css('border', '1px solid red')
+        })
+
         $.ajax({
             type:method,
             url: url,
@@ -81,30 +118,30 @@ $(document).ready(function() {
             processData: false,
             success: (response) => {
 
-                if (response.status == 1)
+                if (response.success)
                     location.reload();
 
-                $('#add-model .modal-body').css('padding-bottom','0px')
+                console.log(response)
 
-                let span = $(document).find('.valid-feedback');
+                if (response.error) {
+                    var i = 0;
+                    span.each(function () {
+                        $(this).addClass('d-block')
+                        $(this).html(response.error[i])
+                        i++
+                    })
 
-                var i = 0;
-                span.each(function() {
-                    $(this).addClass('d-block')
-                    $(this).html(response.message[i])
-                    i++
-                })
-
-                $(document).find('.message').html(response.message[0]+'</span><span style="margin-left: 18%">'+response.message[1]+'</span>');
-
+                    $(document).find('.message').html(response.error[0] + '</span><span style="margin-left: 18%">' + response.error[1] + '</span>');
+                }
             },
             error: (response) => {
-                console.log(response.message);
+                console.log(response);
             }
         });
-        console.log(1111)
+
     });
     /** ./edit product to Catalog by modal **/
+
 
 
     /************************************ ./Catalog products ****************************************/
@@ -128,13 +165,12 @@ $(document).ready(function() {
             processData: false,
             success: (response) => {
 
-                // if (response.status == 1)
-                //     location.reload();
+                if (response.status == 1) location.reload()
 
-                console.log(response)
-                $('#add-model .modal-body').css('padding-bottom','0px')
-                $(document).find('#message').html('<span >'+response.message[0]+'</span><span style="margin-left: 18%">'+response.message[1]+'</span>');
-
+                if (response.status == 0) {
+                    $('#add-model .modal-body').css('padding-bottom','0px')
+                    $(document).find('#message').html('<span >'+response.message[0]+'</span><span style="margin-left: 18%">'+response.message[1]+'</span>');
+                }
             },
             error: (response) => {
                 console.log(response);
@@ -270,4 +306,21 @@ $(document).ready(function() {
     //
     // $(document).find("#quality_id").select2();
 
+    /**=================================== Muddatli to'lov =======================================**/
+
+    $('#.term_payments_table').DataTable( {
+        columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]]
+    } );
+
+    /**=================================== Muddatli to'lov =======================================**/
 });
+

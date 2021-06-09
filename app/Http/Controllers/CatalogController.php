@@ -35,16 +35,19 @@ class CatalogController extends Controller
         $rooms = RoomModel::all();
         $room_first_id = $rooms[0]->id;
 
+        $limit_id = isset($id) ? $id : $room_first_id;
+
         $qualities = QualityModel::all();
 
         $products = DB::table('products')
             ->select('*')
-            ->where('room_id', $room_first_id)
+            ->where('room_id', $limit_id)
             ->get();
 
 
         return view('catalog.index', compact('title', 'rooms', 'qualities', 'products','room_first_id'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,6 +56,7 @@ class CatalogController extends Controller
      */
     public function ajax_add(Request $request)
     {
+
         $validation =  Validator::make($request->all(), [
             'name'  => 'required|string',
             'price'  => 'required|string',
@@ -60,17 +64,19 @@ class CatalogController extends Controller
             'articul'  => 'required|string',
             'room_id'  => 'required|integer',
             'quality_id'  => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'image' => 'required|image|mimes:jpeg,png,jpg,svg',
         ]);
 
 
         if ($validation->passes()) {
+
             $image = $request->file('image');
             $image_new_name = 'product'.rand() .'.'.$image->getClientOriginalExtension();
             $image->move(public_path('uploaded/product/'), $image_new_name);
 
 
             try {
+
                 CatalogModel::create([
                     'name'      => $request->post('name'),
                     'code'      => $request->post('code'),
@@ -78,6 +84,8 @@ class CatalogController extends Controller
                     'articul'   => $request->post('articul'),
                     'room_id'   => $request->post('room_id'),
                     'quality_id'=> $request->post('quality_id'),
+                    'description'=> '',
+                    'changed'   => time(),
                     'image'     => $image_new_name,
                 ]);
 
@@ -90,7 +98,7 @@ class CatalogController extends Controller
                 return response()->json([
                     'status' => 2,
                     'message' => $exception,
-                ]);
+                    ]);
             }
 
         }
@@ -111,91 +119,61 @@ class CatalogController extends Controller
      */
     public function ajax_edit(Request $request)
     {
-        $validation =  Validator::make($request->all(), [
-            'name'      => 'required|string',
-            'price'     => 'required|string',
-            'code'      => 'required|string',
-            'articul'   => 'required|string',
-//            'room_id'   => 'integer',
-//            'quality_id'=> 'integer',
-//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-        ]);
+        $image_name = $request->image_hidden;
+        $image = $request->file('image');
 
+        if ($image != '') {
+            $rules = array(
+                'name'      => 'required|string',
+                'price'     => 'required|string',
+                'code'      => 'required|string',
+                'articul'   => 'required|string',
+                'room_id'   => 'integer',
+                'quality_id'=> 'integer',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            );
+            $error = Validator::make($request->all(), $rules);
 
-        if ($validation->passes()) {
-            $image = $request->file('image');
-            $image_new_name = 'product'.rand() .'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('uploaded/product/'), $image_new_name);
-
-
-            try {
-                $id = $request->post('id');
-
-                $catalog        = CatalogModel::find($id);
-                $catalog->name  = $request->post('name');
-                $catalog->price = $request->post('price');
-                $catalog->code  = $request->post('code');
-                $catalog->articul  = $request->post('articul');
-                $catalog->room_id  = $request->post('room_id');
-                $catalog->quality_id  = $request->post('quality_id');
-                if ($image_new_name) {
-                    $catalog->image = $image_new_name;
-                }
-                $catalog->save();
-
-                return response()->json([
-                    'status' => 1,
-                    'message' => 'rasm yuklandi va bazaga yozildi',
-                ]);
-
-            } catch (\Exception $exception) {
-                return response()->json([
-                    'status' => 2,
-                    'message' => $exception,
-                ]);
+            if ($error->fails()) {
+                return response()->json(['error' => $error->errors()->all()]);
             }
+
+            $image_name = 'product'.rand().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploaded/product/'), $image_name);
+
         }
         else{
-            return response()->json([
-                'status' => 0,
-                'message' => $validation->errors()->all(),
-            ]);
+            $rules = array(
+                'name'      => 'required|string',
+                'price'     => 'required|string',
+                'code'      => 'required|string',
+                'articul'   => 'required|string',
+                'room_id'   => 'integer',
+                'quality_id'=> 'integer',
+            );
+            $error = Validator::make($request->all(), $rules);
+
+            if ($error->fails()) {
+                return response()->json(['error' => $error->errors()->all()]);
+            }
         }
+
+        $form_data = array(
+            'name'      => $request->name,
+            'price'     => $request->price,
+            'code'      => $request->code,
+            'articul'   => $request->articul,
+            'room_id'   => $request->room_id,
+            'quality_id'=> $request->quality_id,
+            'image'     => $image_name
+        );
+
+        CatalogModel::whereId($request->id)->update($form_data);
+
+        return response()->json(['success' => 'Data is successful updated']);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -205,6 +183,13 @@ class CatalogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = CatalogModel::findOrFail($id);
+
+        $image_path = public_path("uploaded/product/{$product->image}");
+        unlink($image_path);
+
+        $product->delete();
+
+        return  redirect()->route('catalog.index');
     }
 }

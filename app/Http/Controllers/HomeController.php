@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoomModel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $title = "Bosh sahifa";
-        return view('catalog.index', compact('title'));
+
+        return view('home', compact('title', 'rooms'));
     }
 }

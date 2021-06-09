@@ -21,9 +21,10 @@ class CatalogModel extends Model
         'price',
         'parent_id',
         'description',
-        'quality',
+        'quality_id',
         'room_id',
-        'created_date',
-        'updated_date',
+        'changed',
+//        'created_at',
+//        'updated_at',
     ];
 }
