@@ -52,12 +52,14 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost/yec-carpet/'),
+//    'url' => env('APP_URL', 'http://localhost/yec-carpet/'),
+    'url' => env('APP_URL', 'http://yec.almirab.uz'),
 
 //    'url' => env('APP_URL', 'http://localhost'),
 //    'asset_url' => env('ASSET_URL', null),
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/yec-carpet/public'),
+//    'asset_url' => env('ASSET_URL', 'http://localhost/yec-carpet/public'),
+    'asset_url' => env('ASSET_URL', 'http://yec.almirab.uz/public'),
 
     /*
     |--------------------------------------------------------------------------

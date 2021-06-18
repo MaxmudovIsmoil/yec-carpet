@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\QualityModel;
+use App\Models\RoomModel;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,9 +29,12 @@ class QualityController extends Controller
     {
         $title = "Sifatlar";
 
+        $rooms = RoomModel::all();
+        $room_id = $rooms[0]->id;
+
         $quality = QualityModel::all();
         $i = 1;
-        return view('quality.index', compact('title', 'quality', 'i'));
+        return view('quality.index', compact('title', 'quality', 'i', 'room_id'));
     }
 
 
@@ -137,8 +141,9 @@ class QualityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function ajax_delete(Request $request)
     {
+        $id = $request->id;
         $u = QualityModel::findOrFail($id);
 
         $image_path = public_path("uploaded/quality/{$u->image}");
@@ -146,6 +151,6 @@ class QualityController extends Controller
 
         $u->delete();
 
-        return  redirect()->route('quality.index');
+        return  response()->json(['status' => 'room_quality', 'id'=> $id]);
     }
 }

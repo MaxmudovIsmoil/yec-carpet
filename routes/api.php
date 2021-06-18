@@ -19,9 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('api_room', [apiController::class, 'api_room']);
+Route::get('room', [apiController::class, 'api_room']);
 
-Route::get('api_quality', [apiController::class, 'api_quality']);
+Route::get('quality', [apiController::class, 'api_quality']);
 
-Route::get('api_product', [apiController::class, 'api_product']);
+Route::get('product', [apiController::class, 'api_product']);
 
+Route::get('term_payment', [apiController::class, 'api_term_payment']);

@@ -64,7 +64,7 @@
                         <tbody>
 
                             @foreach($rooms as $room)
-                                <tr class="js_this_tr">
+                                <tr class="js_this_tr" data-id="{{ $room->id }}">
                                     <td class="text-center">{{ $i++ }}</td>
                                     <td class="js_td_image dataTable-td-image">
                                         <a data-fancybox="gallery" style='background: url("{{ asset('uploaded/room/'.$room->image) }}")' href="{{ asset('uploaded/room/'.$room->image) }}"></a>
@@ -76,7 +76,7 @@
                                             @csrf
                                             <input type="hidden" name="id" value="{{ $room->id }}" >
                                             <input type="hidden" name="image_hidden" value="{{ $room->image }}">
-                                            <input type="text" name="name" value="{{ old('firstname', $room->name) }}" class="form-control col-md-4">
+                                            <input type="text" name="name" value="{{ $room->name }}" class="form-control col-md-4">
                                             <div class="js_image_div custom-file ml-3">
                                                 <input type="file" class="custom-file-input" name="image" multiple="true" id="image{{ $room->id }}">
                                                 <label class="custom-file-label" for="image{{ $room->id }}" data-img='{{ $room->image }}'>{{ $room->image }}</label>
@@ -101,7 +101,7 @@
                                                 </svg>
                                             </a>
 
-                                            <button type="button" data-url="{{ route('room.destroy', [$room->id]) }}" data-name="{{ $room->name }}" class="btn btn-danger js_delete_btn btn-square btn-sm" title="O'chirish" data-toggle="modal" data-target="#delete_notify">
+                                            <button type="button" data-url="{{ route('room.ajax_delete') }}" data-name="{{ $room->name }}" data-id="{{ $room->id }}" class="btn btn-danger js_delete_btn btn-square btn-sm" title="O'chirish" data-toggle="modal" data-target="#delete_notify">
                                                 <svg class="c-icon c-icon-lg" title="O'chirish">
                                                     <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-trash') }}"></use>
                                                 </svg>

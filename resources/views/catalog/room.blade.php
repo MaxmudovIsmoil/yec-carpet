@@ -75,6 +75,8 @@
                                                     </label>
                                                 </div>
                                                 @endforeach
+                                                <span class="text-danger js_checkbox_error_room_id d-none">salom</span>
+
                                             </div>
 
                                             <div class="col-md-12 col-12">
@@ -101,18 +103,17 @@
                     <div class="sub-category-btn btn-group">
 
                         @foreach($rooms as $k => $r)
-                            <a href="{{ route('catalog.room', [$r->id]) }}" class="btn @if($room_id == $r->id) btn-primary @else btn-secondary @endif">{{ $r->name }}</a>
+                            <a href="{{ route('catalog.room', [$r->id]) }}" class="btn @if(Request::segment(3) == $r->id) btn-primary @else btn-secondary @endif">{{ $r->name }}</a>
                         @endforeach
 
                     </div>
 
                     <hr>
                     @if($array)
-                    <div class="all-catalogs js_all_products">
-
-                        @foreach($array as $k => $product)
-                            @if(in_array($room_id, $product['room_id']))
-                                <div class="catalog js_one_product" data-id="{{  $product['id'] }}">
+                        <div class="all-catalogs js_all_products">
+                            @foreach($array as $k => $product)
+                                @if(in_array(Request::segment(3), $product['room_id']))
+                                    <div class="catalog js_one_product" data-id="{{ $product['id'] }}">
                                     <a class="image" data-fancybox="gallery" style="background-image: url({{ asset('uploaded/product/'.$product['image']) }})" href="{{ asset('uploaded/product/'.$product['image']) }}"></a>
                                     <div class="table-btns">
                                         <table class="table">
@@ -231,13 +232,12 @@
                                         </div>
                                     </div>
                                 </div><!-- ./catalog -->
-                            @endif
-                        @endforeach
-
-                    </div>
-                    <a href="{{ route('catalog.ajax_see_again') }}" data-segment="{{ Request::segment(2) }}" data-sub_category_id="{{Request::segment(3)}}" class="btn btn-outline-info btn-block js_see_again_btn">Yana ko'rish</a>
+                                @endif
+                            @endforeach
+                        </div>
+                        <a href="{{ route('catalog.ajax_see_again') }}" data-segment="{{ Request::segment(2) }}" data-sub_category_id="{{Request::segment(3)}}" class="btn btn-outline-info btn-block js_see_again_btn">Yana ko'rish</a>
                     @else
-                        <p class="text-center text-danger">Mahsulot mavjud emas.</p>
+                        <p class="text-center text-danger">Mahsulot mavjud emas</p>
                     @endif
 
                 </div>

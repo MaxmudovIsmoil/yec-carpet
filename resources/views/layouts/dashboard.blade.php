@@ -16,25 +16,19 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+
     <!-- Styles -->
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css{{ time() }}}" rel="stylesheet">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
-{{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">--}}
-	<!-- icons -->
-
-    {{-- select2 --}}
-
-    <link href="{{ asset('select2/css/select2.min.css?'.time()) }}" rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 
      <link href="{{ asset('DataTables/css/dataTable.min.css') }}" rel="stylesheet">
      <link href="{{ asset('DataTables/css/FixedColumn.DataTable.min.css') }}" rel="stylesheet">
-{{--    <link href="{{ asset('css/flag-icon.min.css') }}" rel="stylesheet">--}}
     <link rel="stylesheet" href="{{ asset('css/main.css?'.time()) }}" />
 
 </head>
@@ -42,8 +36,8 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
     <div class="c-sidebar-brand d-md-down-none">YEC catalog</div>
     <ul class="c-sidebar-nav ps ps--active-y">
-        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'catalog' ) bg-primary @endif">
-            <a class="c-sidebar-nav-link @if( Request::segment(1) == 'catalog' ) text-white @endif" href="{{ route('catalog.index') }}">
+        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'catalog') bg-primary @endif">
+            <a class="c-sidebar-nav-link @if( Request::segment(1) == 'catalog') text-white @endif" href="{{ route('catalog.index') }}">
                 <svg class="c-icon mr-2">
                     <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-layers') }}"></use>
                 </svg> <span>Kataloglar</span>
@@ -83,8 +77,8 @@
 
     </ul>
 </div>
-<div class="c-wrapper">
 
+<div class="c-wrapper">
     <header class="c-header c-header-light c-header-fixed">
         <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
             <svg class="c-icon c-icon-lg">
@@ -101,16 +95,12 @@
             </svg>
         </button>
 
-
         <ul class="c-header-nav d-none d-lg-block">
             <h2 class="text-right">{{ $title }}</h2>
         </ul>
 
         <ul class="c-header-nav">
-            <div role="group" class="mb-0 form-group @if( Request::segment(1) == 'catalog' ) d-flex @else d-none @endif">
-                <input type="text" name="search" class="form-control form-control-sm header_search">
-                <input type="submit" value="Izlash" name="searchBtn" class="btn btn-sm btn-info ml-2">
-            </div>
+            <a href="" class="btn btn-info">Izlash</a>
         </ul>
         <ul class="c-header-nav">
             <li class="c-header-nav-item dropdown d-md-down-none mx-2">
@@ -175,14 +165,11 @@
     </div>
 
     <footer class="c-footer">
-        <div><a href="https://coreui.io">CoreUI</a> © 2021</div>
-        <div class="mfs-auto">Powered by&nbsp;<a href="https://coreui.io/pro/">CoreUI Pro</a></div>
+        <div class="mfs-auto"><a href="https://almirab.uz">Almirab</a> IT firmasi</div>
     </footer>
 
 </div>
 
-
-<!-- Optional JavaScript -->
 <!-- Popper.js first, then CoreUI JS -->
 <script src="{{ asset('js/jquery-3.5.js') }}"></script>
 
@@ -195,11 +182,9 @@
         bsCustomFileInput.init();
     });
 </script>
-<script src="{{ asset('select2/js/select2.min.js') }}" type='text/javascript'></script>
 
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
-
 
 {{--fansy Box --}}
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
@@ -217,6 +202,6 @@
 <script src="{{ asset('js/functionDelete.js?'.time()) }}"></script>
 
 <script src="{{ asset('js/functions.js?'.time()) }}"></script>
-
+<div class=""></div>
 </body>
 </html>

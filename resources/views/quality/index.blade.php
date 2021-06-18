@@ -63,7 +63,7 @@
                         <tbody>
 
                             @foreach($quality as $q)
-                                <tr class="js_this_tr">
+                                <tr class="js_this_tr" data-id="{{ $q->id }}">
                                     <td class="text-center">{{ $i++ }}</td>
                                     <td class="js_td_image dataTable-td-image">
                                         <a data-fancybox="gallery" style='background: url("{{ asset('uploaded/quality/'.$q->image) }}")' href="{{ asset('uploaded/quality/'.$q->image) }}"></a>
@@ -101,7 +101,7 @@
                                                 </svg>
                                             </a>
 
-                                            <button type="button" data-url="{{ route('quality.destroy', [$q->id]) }}" data-name="{{ $q->name }}" class="btn btn-danger js_delete_btn btn-square btn-sm" title="O'chirish" data-toggle="modal" data-target="#delete_notify">
+                                            <button type="button" data-url="{{ route('quality.ajax_delete') }}" data-name="{{ $q->name }}" data-id="{{ $q->id }}" class="btn btn-danger js_delete_btn btn-square btn-sm" title="O'chirish" data-toggle="modal" data-target="#delete_notify">
                                                 <svg class="c-icon c-icon-lg" title="O'chirish">
                                                     <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-trash') }}"></use>
                                                 </svg>

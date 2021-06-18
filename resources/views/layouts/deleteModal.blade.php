@@ -1,4 +1,4 @@
-
+{{-- catalog  --}}
 <div class="modal fade" id="delete_notify" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="delete-model-title" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -15,11 +15,24 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-square" data-dismiss="modal">Yo'q</button>
-                <form class="js_modal_delete_form" method="POST">
+                <form id="js_modal_delete_form" method="POST">
                     @csrf
-                    {{ method_field('DELETE') }}
+                    <input type="hidden" name="id" id="hidden_id" value="">
                     <input type="submit" value="Xa" class="btn btn-danger btn-square">
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Mahsulot qolmaganda --}}
+<div class="modal fade" id="warn_model" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-modal="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-warning">
+            <div class="modal-body">
+                <h4 class="align-items-center text-center">
+                    Boshqa mahsulot mavjud emas.
+                </h4>
             </div>
         </div>
     </div>

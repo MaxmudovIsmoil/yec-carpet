@@ -29,9 +29,12 @@ class RoomController extends Controller
     public function index()
     {
         $title = "Xonalar";
+
         $rooms = RoomModel::all();
+        $room_id = $rooms[0]->id;
+
         $i = 1;
-        return view('room.index', compact('title', 'rooms', 'i'));
+        return view('room.index', compact('title', 'rooms', 'i', 'room_id'));
     }
 
 
@@ -136,8 +139,9 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function ajax_delete(Request $request)
     {
+        $id = $request->id;
         $u = RoomModel::findOrFail($id);
 
         $image_path = public_path("uploaded/room/{$u->image}");
@@ -145,6 +149,6 @@ class RoomController extends Controller
 
         $u->delete();
 
-        return  redirect()->route('room.index');
+        return response()->json(['status' => 'room_quality', 'id' => $id]);
     }
 }

@@ -35,10 +35,9 @@
     flex-wrap: nowrap;
 }
 .sub-category-btn .btn{
-    margin-bottom: 10px;
-    /*display: flex;*/
-    display: block;
-    width: 140%;
+    margin-bottom: 5px;
+    white-space: pre;
+    border-left: 1px solid #b2b8c1;
 }
 
 /* width */
@@ -552,3 +551,25 @@ table .room-name {
     margin: 0px;
 }
 
+/** ------------------------------------------ **/
+
+.term_payment_check_ok {
+    cursor: pointer;
+    color: green;
+    padding: 3px;
+    transition: .2s all;
+}
+
+.term_payment_check_no {
+    width: 15rem;
+    cursor: pointer;
+    color: red;
+    padding: 3px;
+    transition: .2s all;
+}
+
+.term_payment_check_ok:hover,
+.term_payment_check_no:hover{
+    box-shadow: 1px 1px 8px gray;
+    border-radius: 50%;
+}

@@ -31,11 +31,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
 
+Route::get('/catalog/room/{id}', [CatalogController::class, 'room'])->name('catalog.room');
+
+Route::get('/catalog/quality/{id}', [CatalogController::class, 'quality'])->name('catalog.quality');
+
 Route::post('/catalog/ajax_add', [CatalogController::class, 'ajax_add'])->name('catalog.ajax_add');
 
 Route::post('/catalog/ajax_edit/{id}', [CatalogController::class, 'ajax_edit'])->name('catalog.ajax_edit');
 
-Route::delete('/catalog/destroy/{id}', [CatalogController::class, 'destroy'])->name('catalog.destroy');
+Route::post('/catalog/ajax_delete', [CatalogController::class, 'ajax_delete'])->name('catalog.ajax_delete');
+
+Route::post('/catalog/see_again', [CatalogController::class, 'ajax_see_again'])->name('catalog.ajax_see_again');
 
 /******************* ./catalog **********************/
 
@@ -48,7 +54,7 @@ Route::post('/room/ajax_add', [RoomController::class, 'ajax_add'])->name('room.a
 
 Route::post('/room/ajax_edit', [RoomController::class, 'ajax_edit'])->name('room.ajax_edit');
 
-Route::delete('/room/destroy/{id}', [RoomController::class, 'destroy'])->name('room.destroy');
+Route::post('/room/ajax_delete', [RoomController::class, 'ajax_delete'])->name('room.ajax_delete');
 
 /******************* ./room **********************/
 
@@ -61,7 +67,7 @@ Route::post('/quality/ajax_add', [QualityController::class, 'ajax_add'])->name('
 
 Route::post('/quality/ajax_edit', [QualityController::class, 'ajax_edit'])->name('quality.ajax_edit');
 
-Route::delete('/quality/destroy/{id}', [QualityController::class, 'destroy'])->name('quality.destroy');
+Route::post('/quality/ajax_delete', [QualityController::class, 'ajax_delete'])->name('quality.ajax_delete');
 
 /******************* ./Quality **********************/
 
@@ -70,10 +76,10 @@ Route::delete('/quality/destroy/{id}', [QualityController::class, 'destroy'])->n
 
 Route::get('/termPayment', [TermPaymentController::class, 'index'])->name('termPayment.index');
 
-//Route::post('/termPayment/ajax_add', [QualityController::class, 'ajax_add'])->name('quality.ajax_add');
+Route::post('/termPayment/ajax_edit', [TermPaymentController::class, 'ajax_edit'])->name('termPayment.ajax_edit');
 
-//Route::post('/quality/ajax_edit', [QualityController::class, 'ajax_edit'])->name('quality.ajax_edit');
-//
+Route::get('/termPayment/term_payment_active', [TermPaymentController::class, 'term_payment_active'])->name('termPayment.term_payment_active');
+
 //Route::delete('/quality/destroy/{id}', [QualityController::class, 'destroy'])->name('quality.destroy');
 
 /******************* ./Term payment **********************/
