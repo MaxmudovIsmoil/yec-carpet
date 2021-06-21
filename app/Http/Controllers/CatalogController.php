@@ -33,10 +33,13 @@ class CatalogController extends Controller
         $title = "Xonaga tegishli gilamlar";
 
         $rooms = RoomModel::all();
-        $room_id = $rooms[0]->id;
+        if ($rooms)
+            $room_id = $rooms[0]->id;
 
         $qualities = QualityModel::all();
-        $quality_id = $qualities[0]->id;
+        if($qualities)
+            $quality_id = $qualities[0]->id;
+
 
         $products = DB::table('products')
             ->select('*')
@@ -45,21 +48,24 @@ class CatalogController extends Controller
             ->offset(0)->limit(12)
             ->get();
 
-        $array = array();
-        foreach($products as $k => $p) {
-            $array[$k]['id'] = $p->id;
-            $array[$k]['name'] = $p->name;
-            $array[$k]['code'] = $p->code;
-            $array[$k]['price'] = $p->price;
-            $array[$k]['articul'] = $p->articul;
-            $array[$k]['image'] = $p->image;
-            $array[$k]['description'] = $p->description;
-            $array[$k]['parent_id'] = $p->parent_id;
-            $array[$k]['quality_id'] = $p->quality_id;
-            $array[$k]['room_id'] = explode(";", $p->room_id);
-            $array[$k]['changed'] = $p->changed;
-            $array[$k]['created_at'] = $p->created_at;
-            $array[$k]['updated_at'] = $p->updated_at;
+        if ($products) {
+
+            $array = array();
+            foreach ($products as $k => $p) {
+                $array[$k]['id'] = $p->id;
+                $array[$k]['name'] = $p->name;
+                $array[$k]['code'] = $p->code;
+                $array[$k]['price'] = $p->price;
+                $array[$k]['articul'] = $p->articul;
+                $array[$k]['image'] = $p->image;
+                $array[$k]['description'] = $p->description;
+                $array[$k]['parent_id'] = $p->parent_id;
+                $array[$k]['quality_id'] = $p->quality_id;
+                $array[$k]['room_id'] = explode(";", $p->room_id);
+                $array[$k]['changed'] = $p->changed;
+                $array[$k]['created_at'] = $p->created_at;
+                $array[$k]['updated_at'] = $p->updated_at;
+            }
         }
 
         return view('catalog.index', compact('title', 'rooms', 'qualities','array','room_id', 'quality_id'));
@@ -108,7 +114,6 @@ class CatalogController extends Controller
         $title = "Sifatlarga tegishli gilamlar";
 
         $rooms = RoomModel::all();
-
 
         $qualities = QualityModel::all();
         $quality_id = $qualities[0]->id;

@@ -99,46 +99,24 @@
             <h2 class="text-right">{{ $title }}</h2>
         </ul>
 
-        <ul class="c-header-nav">
-            <a href="" class="btn btn-info">Izlash</a>
-        </ul>
-        <ul class="c-header-nav">
-            <li class="c-header-nav-item dropdown d-md-down-none mx-2">
-                <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"></a>
-            </li>
 
-            <li class="c-header-nav-item dropdown">
+        <ul class="c-header-nav mfs-auto">
+            @if(Request::segment(1) == 'catalog')
+                <a href="{{ route('search.index') }}" class="btn btn-outline-info mr-3">Izlash</a>
+            @endif
+
+            <li class="c-header-nav-item dropdown mr-4">
                 <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <span style="font-weight: 600; font-size: 18px;">{{ Auth::user()->username }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right pt-0">
                     <div class="dropdown-header bg-light py-2"><strong>Sozlamalar</strong></div>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('user.edit_password') }}">
                         <svg class="c-icon mfe-2">
                             <use xlink:href="{{asset('/icons/sprites/free.svg#cil-user')}}"></use>
-                        </svg> Profil
+                        </svg> Parol almashtirish
+
                     </a>
-{{--                    <a class="dropdown-item" href="#">--}}
-{{--                        <svg class="c-icon mfe-2">--}}
-{{--                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-settings') }}"></use>--}}
-{{--                        </svg> Settings--}}
-{{--                    </a>--}}
-{{--                    <a class="dropdown-item" href="#">--}}
-{{--                        <svg class="c-icon mfe-2">--}}
-{{--                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-credit-card') }}"></use>--}}
-{{--                        </svg> Payments<span class="badge badge-secondary mfs-auto">42</span>--}}
-{{--                    </a>--}}
-{{--                    <a class="dropdown-item" href="#">--}}
-{{--                        <svg class="c-icon mfe-2">--}}
-{{--                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-file')}}"></use>--}}
-{{--                        </svg> Projects<span class="badge badge-primary mfs-auto">42</span>--}}
-{{--                    </a>--}}
-{{--                    <div class="dropdown-divider"></div>--}}
-{{--                    <a class="dropdown-item" href="#">--}}
-{{--                        <svg class="c-icon mr-2">--}}
-{{--                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-task') }}"></use>--}}
-{{--                        </svg> Lock Account--}}
-{{--                    </a>--}}
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                        document.getElementById('logout-form').submit();">
@@ -163,6 +141,8 @@
             </div>
         </main>
     </div>
+
+    @include('layouts.deleteModal')
 
     <footer class="c-footer">
         <div class="mfs-auto"><a href="https://almirab.uz">Almirab</a> IT firmasi</div>
@@ -194,10 +174,6 @@
 <script src="{{ asset('DataTables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('DataTables/js/dataTables.fixedColumns.min.js') }}"></script>
 
-{{--@if( (Request::segment(1) == 'room') || (Request::segment(1) == 'quality') )--}}
-{{--@endif--}}
-
-@include('layouts.deleteModal')
 
 <script src="{{ asset('js/functionDelete.js?'.time()) }}"></script>
 

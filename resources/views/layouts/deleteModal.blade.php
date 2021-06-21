@@ -29,9 +29,24 @@
 <div class="modal fade" id="warn_model" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content bg-warning">
-            <div class="modal-body">
+            <div class="modal-body pl-0 pr-0 pb-2">
                 <h4 class="align-items-center text-center">
                     Boshqa mahsulot mavjud emas.
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{-- user login and password update successful --}}
+<div class="modal fade" id="successful_model" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-modal="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-success">
+            <div class="modal-body pl-0 pr-0 pb-2">
+                <h4 class="align-items-center text-center">
+                    Muvaffaqiyatli yangilandi.
                 </h4>
             </div>
         </div>

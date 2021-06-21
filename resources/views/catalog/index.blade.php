@@ -67,14 +67,16 @@
 
                                             <div class="col-md-3 offset-md-1">
                                                 <label for="room_selects">Xonalar</label>
-                                                @foreach($rooms as $r)
-                                                <div class="form-check mb-1">
-                                                    <input class="form-check-input" name="room_id[]" type="checkbox" value="{{ $r->id }}" id="room{{ $r->id }}">
-                                                    <label class="form-check-label" for="room{{ $r->id }}">
-                                                        {{ $r->name }}
-                                                    </label>
-                                                </div>
-                                                @endforeach
+                                                @if($rooms)
+                                                    @foreach($rooms as $r)
+                                                    <div class="form-check mb-1">
+                                                        <input class="form-check-input" name="room_id[]" type="checkbox" value="{{ $r->id }}" id="room{{ $r->id }}">
+                                                        <label class="form-check-label" for="room{{ $r->id }}">
+                                                            {{ $r->name }}
+                                                        </label>
+                                                    </div>
+                                                    @endforeach
+                                                @endif
                                             </div>
 
                                             <div class="col-md-12 col-12">
@@ -99,11 +101,11 @@
                 </div>
                 <div class="card-body">
                     <div class="sub-category-btn btn-group">
-
-                        @foreach($rooms as $k => $r)
-                            <a href="{{ route('catalog.room', [$r->id]) }}" class="btn @if($room_id == $r->id) btn-primary @else btn-secondary @endif">{{ $r->name }}</a>
-                        @endforeach
-
+                        @if($rooms)
+                            @foreach($rooms as $k => $r)
+                                <a href="{{ route('catalog.room', [$r->id]) }}" class="btn @if($room_id == $r->id) btn-primary @else btn-secondary @endif">{{ $r->name }}</a>
+                            @endforeach
+                        @endif
                     </div>
 
                     <hr>

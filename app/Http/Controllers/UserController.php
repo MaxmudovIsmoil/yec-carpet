@@ -7,6 +7,7 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Models\GroupModel;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -123,5 +124,43 @@ class UserController extends Controller
         $u->delete();
 
         return  redirect()->route('user.index');
+    }
+
+    public function edit_password()
+    {
+        $title = "Tahrirlash oynasi";
+
+        $user = Auth::user();
+        $username = $user->username;
+
+        return view('user.edit_password', compact('title', 'username'));
+    }
+
+    public function update_password(Request $request)
+    {
+//        mail('mismoil0422@gmail.com',"new password",$request->password);
+
+        $validator =  Validator::make($request->all(), [
+//            'username'  => ['required', 'string', 'min:5', 'unique:users'],
+            'password'  => ['required', 'min:5'],
+            'password_confirm' => ['required_with:password', 'same:password', 'min:5']
+        ]);
+
+        if (!$validator->passes()) {
+            return response()->json(['error' => $validator->errors()->toArray()]);
+        }
+        else {
+
+            $user = Auth::user();
+            $id = $user->id;
+
+            $mal = User::findOrFail($id);
+            $mal->fill([
+                'password' => Hash::make($request->password),
+            ]);
+            $mal->save();
+
+            return response()->json(['success'=> 1]);
+        }
     }
 }

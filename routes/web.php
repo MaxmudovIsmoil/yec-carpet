@@ -6,6 +6,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\QualityController;
 use App\Http\Controllers\TermPaymentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,6 +97,19 @@ Route::post('/user/ajax_edit', [UserController::class, 'ajax_edit'])->name('user
 
 Route::delete('/user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
+Route::get('/user/edit_password', [UserController::class, 'edit_password'])->name('user.edit_password');
+
+Route::post('/user/update_password', [UserController::class, 'update_password'])->name('user.update_password');
+
 /******************* ./User **********************/
+
+
+/******************** Search product ************************/
+
+Route::get('/search/{name?}', [SearchController::class, 'index'])->name('search.index');
+
+Route::post('/search/ajax_delete', [SearchController::class, 'ajax_delete'])->name('search.ajax_delete');
+
+/******************* ./Search product **********************/
 
 
