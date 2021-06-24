@@ -24,6 +24,12 @@
 
 /** ############################ ./Catalog ################################### **/
 
+.room_checkbox {
+    overflow-y: scroll;
+    height: 180px;
+}
+
+
 .btnAdd{
     margin-left: 50%;
 }

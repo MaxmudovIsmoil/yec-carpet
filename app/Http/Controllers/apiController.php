@@ -75,7 +75,7 @@ class apiController extends Controller
             $array[$k]['parent_id'] = $p->parent_id;
             $array[$k]['quality_id'] = $p->quality_id;
             $array[$k]['room_id'] = $p->room_id;
-            $array[$k]['changed'] = $p->caheged;
+            $array[$k]['changed'] = $p->changed;
             $array[$k]['updated_at'] = $p->updated_at;
             $array[$k]['created_at'] = $p->created_at;
         }

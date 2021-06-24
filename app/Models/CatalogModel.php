@@ -14,11 +14,10 @@ class CatalogModel extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'code',
-        'name',
         'articul',
-        'image',
+        'code',
         'price',
+        'image',
         'parent_id',
         'description',
         'quality_id',

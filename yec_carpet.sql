@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1
--- Время создания: Июн 03 2021 г., 10:29
--- Версия сервера: 10.4.17-MariaDB
--- Версия PHP: 7.4.14
+-- Хост: localhost
+-- Время создания: Июн 21 2021 г., 12:14
+-- Версия сервера: 10.4.14-MariaDB
+-- Версия PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,6 +35,16 @@ CREATE TABLE `due_dates` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `due_dates`
+--
+
+INSERT INTO `due_dates` (`id`, `name`, `active`, `percent`, `created_at`, `updated_at`) VALUES
+(1, '3 oy', 1, 10, '2021-06-08 14:01:28', '2021-06-11 16:55:34'),
+(2, '6 oy', 1, 15, '2021-06-08 14:01:28', '2021-06-21 04:44:53'),
+(3, '9 oy', 1, 20, '2021-06-08 14:01:52', '2021-06-21 04:44:54'),
+(4, '12 oy', 1, 30, '2021-06-08 14:02:12', '2021-06-21 04:44:49');
 
 -- --------------------------------------------------------
 
@@ -98,13 +108,13 @@ CREATE TABLE `products` (
   `name` varchar(255) DEFAULT NULL,
   `articul` varchar(45) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
+  `price` varchar(50) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `description` text DEFAULT NULL,
-  `quality_id` int(11) DEFAULT NULL,
-  `room_id` int(11) DEFAULT NULL,
+  `quality_id` varchar(30) DEFAULT NULL,
+  `room_id` varchar(30) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `changed` tinyint(1) NOT NULL COMMENT '0 - bazadan tortilgan\r\n1 - tortish kerak',
+  `changed` varchar(255) NOT NULL COMMENT 'current time',
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -113,24 +123,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `code`, `name`, `articul`, `image`, `price`, `parent_id`, `description`, `quality_id`, `room_id`, `created_at`, `changed`, `updated_at`) VALUES
-(1, '007', 'Afsona', '123', 'yulak.png', 450000000, 1, 'test', 1, 1, '2021-05-29 07:23:47', 0, '2021-05-31 05:38:17'),
-(2, '008', 'Golden', '001', 'mehmonxona.png.png', 1230000000, 1, NULL, 1, 2, '2021-05-29 07:24:54', 0, '2021-05-31 05:36:56'),
-(3, '009', 'sdsds', '002', 'bolalar_xonasi.png', 81300000, 1, NULL, 2, 3, '2021-05-29 07:25:37', 0, '2021-05-31 05:36:07'),
-(4, '009', 'tet', '007', 'yulak.png', 263500000, 1, NULL, 2, 4, '2021-05-29 07:25:42', 0, '2021-05-31 05:38:09'),
-(5, '009', 'tet', '003', 'yotoqxona.png', 47500000, 1, NULL, 2, 3, '2021-05-29 07:25:49', 0, '2021-05-31 05:37:50'),
-(6, '004', 'ZAten', '2222', 'yulak.png', 321321000, 1, NULL, 1, 1, '2021-05-29 07:46:31', 0, '2021-05-31 05:38:40'),
-(7, '004', 'Zegna', '1212', 'yulak.png', 123321000, 1, NULL, 1, 2, '2021-05-29 07:46:36', 0, '2021-05-31 05:38:43'),
-(8, '004', 'Barcelona', '0126', 'zal.png', 123321000, 1, NULL, 3, 1, '2021-05-29 07:46:43', 0, '2021-05-31 05:38:53'),
-(9, '004', 'Lotus', '0014', 'mehmonxona.png', 123321000, 1, NULL, 1, 1, '2021-05-29 07:46:48', 0, '2021-05-31 05:39:13'),
-(10, 'M1', 'Olmaf', '123', 'product357748422.png', 123, NULL, NULL, NULL, NULL, '2021-05-31 16:12:50', 0, '2021-05-31 16:12:50'),
-(11, 'M1', 'Olmaf', '123', 'product1035403490.png', 123, NULL, NULL, NULL, 2, '2021-05-31 16:14:30', 0, '2021-05-31 16:14:30'),
-(12, 'M1', 'Olmaf', '123', 'product428830406.png', 123, NULL, NULL, NULL, 2, '2021-05-31 16:14:33', 0, '2021-05-31 16:14:33'),
-(13, '91664', 'Olma', '123', 'product435091851.png', 123, NULL, NULL, NULL, 1, '2021-05-31 16:16:55', 0, '2021-05-31 16:16:55'),
-(14, 'M1', 'Ismoil Maxmudov', 'test', 'product1857160339.png', 500000, NULL, NULL, NULL, 1, '2021-05-31 16:18:42', 0, '2021-05-31 16:18:42'),
-(15, '91664', 'Olma', '123', 'product600156597.png', 123, NULL, NULL, NULL, 3, '2021-05-31 16:36:57', 0, '2021-05-31 16:36:57'),
-(16, 'M1', 'Ismoil Maxmudov', '123', 'product999725088.png', 500000, NULL, NULL, NULL, 3, '2021-05-31 16:47:41', 0, '2021-05-31 16:47:41'),
-(17, '91664', 'salom', '123', 'product1775508125.jpg', 500000, NULL, NULL, NULL, 1, '2021-06-01 05:14:44', 0, '2021-06-01 05:14:44'),
-(18, 'M123', 'Salom boy', 'S0013', 'product56337471.png', 500000, NULL, NULL, NULL, 1, '2021-06-01 10:18:50', 0, '2021-06-01 10:18:50');
+(1, '007', 'N005A', '001', 'N005A1.jpg', '35000', NULL, NULL, '1', '1', '2021-06-19 14:18:46', '0', '2021-06-19 14:24:25'),
+(2, 'N004C', 'N004C', 'N004C', 'product192983540.jpg', '500000', NULL, '', '1', '1;6', '2021-06-19 14:26:50', '1624112810', '2021-06-21 04:44:18');
 
 -- --------------------------------------------------------
 
@@ -141,9 +135,8 @@ INSERT INTO `products` (`id`, `code`, `name`, `articul`, `image`, `price`, `pare
 CREATE TABLE `qualities` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
   `image` varchar(255) NOT NULL,
-  `changed` tinyint(1) NOT NULL COMMENT '0 - bazadan tortilgan\r\n1 - tortish kerak',
+  `changed` varchar(255) NOT NULL COMMENT 'curret time',
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -152,19 +145,17 @@ CREATE TABLE `qualities` (
 -- Дамп данных таблицы `qualities`
 --
 
-INSERT INTO `qualities` (`id`, `name`, `description`, `image`, `changed`, `created_at`, `updated_at`) VALUES
-(2, 'afsona', NULL, 'afsona_collection.png', 0, NULL, '2021-05-30 14:02:53'),
-(3, 'almira beige', NULL, 'almira_beige_collection.png', 0, NULL, '2021-05-30 14:02:53'),
-(6, 'almira grey', NULL, 'almira_grey_collection.png', 0, NULL, '2021-05-30 14:02:53'),
-(7, 'barcelona', NULL, 'barcelona_collection.png', 0, NULL, '2021-05-30 14:02:53'),
-(10, 'flooring ba', NULL, 'flooring_ba_collection.png', 0, NULL, '2021-05-30 14:02:53'),
-(12, 'flooring be', NULL, 'flooring_be_collection.png', 0, NULL, '2021-05-30 14:02:53'),
-(13, 'golden', NULL, 'golden_collection.png', 0, NULL, '2021-05-30 14:02:53'),
-(14, 'lotus', NULL, 'lotus.jpg', 0, NULL, '2021-05-30 14:02:53'),
-(15, 'saten', NULL, 'saten_collection.png', 0, NULL, '2021-05-30 14:02:53'),
-(16, 'zegna', NULL, 'zegna.jpg', 0, NULL, '2021-05-30 14:02:53'),
-(17, 'Olmalar', NULL, 'quality211469922.png', 0, '2021-05-31 13:19:02', '2021-05-31 13:41:39'),
-(18, '123', NULL, 'quality1438766059.png', 0, '2021-05-31 13:25:54', '2021-05-31 13:29:14');
+INSERT INTO `qualities` (`id`, `name`, `image`, `changed`, `created_at`, `updated_at`) VALUES
+(1, 'Lotus', 'lotus.jpg', '0', '2021-06-19 14:16:53', '2021-06-19 14:16:53'),
+(2, 'Afsona', 'quality1254485990.png', '1624114012', '2021-06-19 14:46:52', '2021-06-19 14:46:52'),
+(3, 'Almira beige', 'quality1682979521.png', '1624114047', '2021-06-19 14:47:27', '2021-06-19 14:47:27'),
+(4, 'Almira grey', 'quality796613646.jpg', '1624114647', '2021-06-19 14:47:45', '2021-06-19 14:57:27'),
+(5, 'Barcelona', 'quality2001493050.jpg', '1624114703', '2021-06-19 14:48:01', '2021-06-19 14:58:23'),
+(6, 'Flooring bardo', 'quality1943362169.jpg', '1624114755', '2021-06-19 14:48:21', '2021-06-19 14:59:15'),
+(7, 'Flooring beige', 'quality622038105.jpg', '1624114768', '2021-06-19 14:48:45', '2021-06-19 14:59:28'),
+(8, 'Golden', 'quality569141129.jpg', '1624114780', '2021-06-19 14:49:15', '2021-06-19 14:59:40'),
+(9, 'Saten', 'quality2015879329.png', '1624114173', '2021-06-19 14:49:33', '2021-06-19 14:49:33'),
+(10, 'Zegna', 'quality1792160068.jpg', '1624114812', '2021-06-19 14:49:48', '2021-06-19 15:00:12');
 
 -- --------------------------------------------------------
 
@@ -177,7 +168,7 @@ CREATE TABLE `rooms` (
   `name` varchar(100) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `changed` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 - bazadan tortilgan.\r\n1 - tortish kerak.',
+  `changed` varchar(255) NOT NULL COMMENT 'curret time',
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -186,11 +177,12 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `name`, `image`, `created_at`, `changed`, `updated_at`) VALUES
-(1, 'Olmalar', 'room1594914652.png', NULL, 0, '2021-05-31 09:10:18'),
-(2, 'salom123', 'room1197945928.png', NULL, 0, '2021-05-31 08:35:47'),
-(3, 'Yotoqxona', 'yotoqxona.png', NULL, 0, NULL),
-(8, 'Bolalar xonasi', 'bolalar_xonasi.png', NULL, 0, NULL),
-(14, 'Zal uchun', 'room134066938.png', NULL, 0, '2021-06-02 05:32:36');
+(1, 'Mexmonxona', 'room1678198687.png', '2021-06-19 14:16:16', '1624113777', '2021-06-19 14:42:57'),
+(2, 'Oshxona', 'room363266010.png', '2021-06-19 14:31:02', '1624113062', '2021-06-19 14:31:02'),
+(3, 'Bolalar xonasi', 'room2084453640.png', '2021-06-19 14:39:19', '1624113559', '2021-06-19 14:39:19'),
+(4, 'Zal', 'room2046621136.png', '2021-06-19 14:39:41', '1624113581', '2021-06-19 14:39:41'),
+(5, 'Yo\'lak', 'room1098046688.png', '2021-06-19 14:40:01', '1624113601', '2021-06-19 14:40:01'),
+(6, 'Yotoqxona', 'room1004135354.png', '2021-06-19 14:40:36', '1624113636', '2021-06-19 14:40:36');
 
 -- --------------------------------------------------------
 
@@ -221,9 +213,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `email_verified_at`, `username`, `password`, `remember_token`, `status`, `phone`, `dob`, `address`, `gender`, `created_at`, `updated_at`) VALUES
-(1, 'Ismoil', 'Maxmudov', 'test@gmail.com', NULL, 'ismoil', '$2y$10$b57SQSRH/XoS6vZ1mwUG0uKYUrQUdOPqNMzqyV8gjXUacUSCbWqhK', 'gjRGsejX4xncsxNdob5fkGLijqLCngRHiGNfxIrgDX0HlsnUNI3WPrDIXw33', 'admin', '+998972087090', '1996-04-22', 'Dang\'ara tumani', 1, '2021-05-14 09:24:06', '2021-05-14 09:24:06'),
+(1, 'Ismoil', 'Maxmudov', 'test@gmail.com', NULL, 'ismoil', '$2y$10$aTua/yOmMej7m9qP4A.dWOhATh3152lr8kCSdiTN53Rqes6y.cPsO', 'PLg4jHnPUVyvc1myt47wbq1PoNG6h9l3J8wvMZpWTEweekRrQNbBWO8BSdKR', 'admin', '+998972087090', '1996-04-22', 'Dang\'ara tumani', 1, '2021-05-14 09:24:06', '2021-06-19 08:36:55'),
 (3, 'Olimjon', 'Ergasher', 'olim@gmail.com', NULL, 'olimjon', '202cb962ac59075b964b07152d234b70', NULL, 'manager', '905062323', '', 'Kokon. Vogzal', 1, '2021-05-24 06:59:28', NULL),
-(4, 'Ismoil', 'Maxmudov', 'test12@gmia.com', NULL, 'ismoil1', '123456', NULL, 'manager', '(94) 556-83-86', 'fsdfsd', 'asdasd', 1, NULL, NULL),
 (5, 'javohir', 'No\'monov', '', NULL, 'javohir', '12345', NULL, 'manager', '+998972080054', '24.06.2001', 'Alishe Navoiy 112', 1, NULL, NULL);
 
 --
@@ -288,7 +279,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `due_dates`
 --
 ALTER TABLE `due_dates`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `failed_jobs`
@@ -306,25 +297,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `qualities`
 --
 ALTER TABLE `qualities`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

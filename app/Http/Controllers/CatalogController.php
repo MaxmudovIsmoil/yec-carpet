@@ -23,6 +23,7 @@ class CatalogController extends Controller
         $this->middleware('auth');
     }
 
+
     /**
      * Display a listing of the resource.
      *
@@ -53,10 +54,9 @@ class CatalogController extends Controller
             $array = array();
             foreach ($products as $k => $p) {
                 $array[$k]['id'] = $p->id;
-                $array[$k]['name'] = $p->name;
+                $array[$k]['articul'] = $p->articul;
                 $array[$k]['code'] = $p->code;
                 $array[$k]['price'] = $p->price;
-                $array[$k]['articul'] = $p->articul;
                 $array[$k]['image'] = $p->image;
                 $array[$k]['description'] = $p->description;
                 $array[$k]['parent_id'] = $p->parent_id;
@@ -91,10 +91,9 @@ class CatalogController extends Controller
         $array = array();
         foreach($products as $k => $p) {
             $array[$k]['id'] = $p->id;
-            $array[$k]['name'] = $p->name;
+            $array[$k]['articul'] = $p->articul;
             $array[$k]['code'] = $p->code;
             $array[$k]['price'] = $p->price;
-            $array[$k]['articul'] = $p->articul;
             $array[$k]['image'] = $p->image;
             $array[$k]['description'] = $p->description;
             $array[$k]['parent_id'] = $p->parent_id;
@@ -130,10 +129,9 @@ class CatalogController extends Controller
         $array = array();
         foreach($products as $k => $p) {
             $array[$k]['id'] = $p->id;
-            $array[$k]['name'] = $p->name;
+            $array[$k]['articul'] = $p->articul;
             $array[$k]['code'] = $p->code;
             $array[$k]['price'] = $p->price;
-            $array[$k]['articul'] = $p->articul;
             $array[$k]['image'] = $p->image;
             $array[$k]['description'] = $p->description;
             $array[$k]['parent_id'] = $p->parent_id;
@@ -156,12 +154,11 @@ class CatalogController extends Controller
     public function ajax_add(Request $request)
     {
         $rules = array(
-            'name'  => 'required|string',
-            'price'  => 'required|string',
-            'code'  => 'required|string',
-            'articul'  => 'required|string',
-            'quality_id'  => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'articul'   => 'required|string',
+            'code'      => 'required|string',
+            'price'     => 'required|string',
+            'quality_id'=> 'required|integer',
+            'image'     => 'required|image|mimes:jpeg,png,jpg',
         );
         $error = Validator::make($request->all(), $rules);
 
@@ -185,10 +182,9 @@ class CatalogController extends Controller
 
             try {
                 CatalogModel::create([
-                    'name'      => $request->name,
+                    'articul'   => $request->articul,
                     'code'      => $request->code,
                     'price'     => $request->price,
-                    'articul'   => $request->articul,
                     'room_id'   => $room_ids,
                     'quality_id'=> $request->quality_id,
                     'description'=> '',
@@ -224,10 +220,9 @@ class CatalogController extends Controller
 
         if ($image != '') {
             $rules = array(
-                'name'      => 'required|string',
-                'price'     => 'required|string',
-                'code'      => 'required|string',
                 'articul'   => 'required|string',
+                'code'      => 'required|string',
+                'price'     => 'required|string',
                 'quality_id'=> 'integer',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             );
@@ -243,10 +238,9 @@ class CatalogController extends Controller
         }
         else{
             $rules = array(
-                'name'      => 'required|string',
-                'price'     => 'required|string',
-                'code'      => 'required|string',
                 'articul'   => 'required|string',
+                'code'      => 'required|string',
+                'price'     => 'required|string',
                 'quality_id'=> 'integer',
             );
             $error = Validator::make($request->all(), $rules);
@@ -263,10 +257,9 @@ class CatalogController extends Controller
         $room_ids = implode(";", $request->room_id);
 
         $form_data = array(
-            'name'      => $request->name,
-            'price'     => $request->price,
-            'code'      => $request->code,
             'articul'   => $request->articul,
+            'code'      => $request->code,
+            'price'     => $request->price,
             'room_id'   => $room_ids,
             'quality_id'=> $request->quality_id,
             'image'     => $image_name
@@ -301,7 +294,7 @@ class CatalogController extends Controller
 
 
 
-    public function ajax_see_again(Request $request)
+    public function ajax_see_again_index(Request $request)
     {
         $qualities = QualityModel::all();
         $rooms = RoomModel::all();
@@ -325,10 +318,9 @@ class CatalogController extends Controller
             $array = array();
             foreach ($products as $k => $p) {
                 $array[$k]['id'] = $p->id;
-                $array[$k]['name'] = $p->name;
+                $array[$k]['articul'] = $p->articul;
                 $array[$k]['code'] = $p->code;
                 $array[$k]['price'] = $p->price;
-                $array[$k]['articul'] = $p->articul;
                 $array[$k]['image'] = $p->image;
                 $array[$k]['description'] = $p->description;
                 $array[$k]['parent_id'] = $p->parent_id;
@@ -347,8 +339,8 @@ class CatalogController extends Controller
                                     <table class="table">
                                         <tbody>
                                             <tr>
-                                                <td width="25%">Nomi:</td>
-                                                <td>' . $p['name'] . '</td>
+                                                <td width="25%">Code:</td>
+                                                <td>' . $p['code'] . '</td>
                                             </tr>
                                             <tr>
                                                 <td>Narxi:</td>
@@ -376,15 +368,15 @@ class CatalogController extends Controller
                                                         </button>
                                                     </div>
                                                     <form method="post" action="' . route('catalog.ajax_edit', [$p['id']]) . '" class="js_edit_product_modal_form form-group" enctype="multipart/form-data">
-                                                        <input type="hidden" name="_token" value="wdwDjMFuhwcYDr4rp1XWfQM6b4jKQqpZMwAQToig">
+                                                        <input type="hidden" name="_token" value="'.csrf_token().'">
                                                         <input type="hidden" name="id" value="' . $p['id'] . '">
                                                         <div class="modal-body">
                                                             <div class="row">
                                                                 <div class="col-md-8">
                                                                     <div class="row">
                                                                         <div class="col-md-6 mb-2">
-                                                                            <label for="name' . $p['id'] . '">Nomi</label>
-                                                                            <input type="text" name="name" id="name' . $p['id'] . '" class="form-control" value="' . $p['name'] . '">
+                                                                            <label for="name' . $p['id'] . '">Code</label>
+                                                                            <input type="text" name="name" id="name' . $p['id'] . '" class="form-control" value="' . $p['code'] . '">
                                                                             <span class="valid-feedback text-danger name_error"></span>
                                                                         </div>
                                                                         <div class="col-md-6 mb-2">
@@ -446,7 +438,7 @@ class CatalogController extends Controller
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer mt-3 pb-0">
-                                                            <button class="btn btn-success btn-square">Saqlash</button>
+                                                            <button class="btn btn-success btn-square jjbtn">Saqlash</button>
                                                             <button type="button" class="btn btn-secondary js_modal_closeBtn btn-square" data-dismiss="modal">Bekor qilish</button>
                                                         </div>
                                                     </form>
@@ -478,10 +470,9 @@ class CatalogController extends Controller
         $array = array();
         foreach ($products as $k => $p) {
             $array[$k]['id'] = $p->id;
-            $array[$k]['name'] = $p->name;
+            $array[$k]['articul'] = $p->articul;
             $array[$k]['code'] = $p->code;
             $array[$k]['price'] = $p->price;
-            $array[$k]['articul'] = $p->articul;
             $array[$k]['image'] = $p->image;
             $array[$k]['description'] = $p->description;
             $array[$k]['parent_id'] = $p->parent_id;
@@ -500,8 +491,8 @@ class CatalogController extends Controller
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td width="25%">Nomi:</td>
-                                            <td>' . $p['name'] . '</td>
+                                            <td width="25%">Code:</td>
+                                            <td>' . $p['code'] . '</td>
                                         </tr>
                                         <tr>
                                             <td>Narxi:</td>
@@ -529,7 +520,7 @@ class CatalogController extends Controller
                                                     </button>
                                                 </div>
                                                 <form method="post" action="'.route('catalog.ajax_edit', [$p['id']]).'" class="js_edit_product_modal_form form-group" enctype="multipart/form-data">
-                                                    <input type="hidden" name="_token" value="wdwDjMFuhwcYDr4rp1XWfQM6b4jKQqpZMwAQToig">
+                                                    <input type="hidden" name="_token" value="'.csrf_token().'">
                                                     <input type="hidden" name="id" value="' . $p['id'] . '">
                                                     <div class="modal-body">
                                                         <div class="row">
@@ -537,7 +528,7 @@ class CatalogController extends Controller
                                                                 <div class="row">
                                                                     <div class="col-md-6 mb-2">
                                                                         <label for="name' . $p['id'] . '">Nomi</label>
-                                                                        <input type="text" name="name" id="name' . $p['id'] . '" class="form-control" value="' . $p['name'] . '">
+                                                                        <input type="text" name="name" id="name' . $p['id'] . '" class="form-control" value="' . $p['code'] . '">
                                                                         <span class="valid-feedback text-danger name_error"></span>
                                                                     </div>
                                                                     <div class="col-md-6 mb-2">
@@ -575,12 +566,16 @@ class CatalogController extends Controller
                                                             <div class="col-md-3 offset-md-1">
                                                                 <label for="rooms'.$p['id'].'">Xonalar</label>';
 
-                                                                foreach ($rooms as $r) {
-                                                                    $html .= '<div class="form-check mb-1">
-                                                                                <input class="form-check-input" name="room_id[]" type="checkbox" value="' . $r['id'] . '" id="room' . $r['id'] . $p['id'] . '">
+                                                                    foreach ($rooms as $r) {
+                                                                        $html .= '<div class="form-check mb-1">
+                                                                                <input class="form-check-input" name="room_id[]" type="checkbox" ';
+                                                                                if(in_array($r['id'], $p['room_id'])) {
+                                                                                    $html .='checked';
+                                                                                }
+                                                                                $html .= ' value="' . $r['id'] . '" id="room' . $r['id'] . $p['id'] . '">
                                                                                 <label class="form-check-label" for="room' . $r['id'] . $p['id'] . '">' . $r['name'] . '</label>
                                                                             </div>';
-                                                            }
+                                                                    }
                                                             $html .= '<span class="text-danger js_checkbox_error_room_id d-none"></span>
                                                             </div>
                                                             <div class="col-md-12 col-12">
@@ -595,7 +590,7 @@ class CatalogController extends Controller
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer mt-3 pb-0">
-                                                        <button class="btn btn-success btn-square">Saqlash</button>
+                                                        <button class="btn btn-success btn-square jjbtn">Saqlash</button>
                                                         <button type="button" class="btn btn-secondary js_modal_closeBtn btn-square" data-dismiss="modal">Bekor qilish</button>
                                                     </div>
                                                 </form>
@@ -612,7 +607,6 @@ class CatalogController extends Controller
                         </div>';
 
             }
-
 
         }
 

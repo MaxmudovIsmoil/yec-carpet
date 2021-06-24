@@ -34,7 +34,6 @@ $(document).ready(function() {
         let method = $(this).attr('method');
         let formData = new FormData(this);
 
-        console.log(1111)
 
         $.ajax({
             type:method,
@@ -43,6 +42,7 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: (response) => {
+
 
                 if (response.status == 1)
                     location.reload();
@@ -61,9 +61,8 @@ $(document).ready(function() {
 
                 }
                 if (response.warn){
-                    let check = $(document).find('.js_checkbox_error_room_id')
-                    check.text(response.warn);
-                    check.removeClass('d-none');
+                    let check = $(document).find('.room_checkbox_error')
+                    check.html(response.warn);
                 }
 
             },
@@ -76,8 +75,10 @@ $(document).ready(function() {
 
 
     /** Edit product to Catalog by modal **/
-    let edit_product_modal_form = $(document).find('.js_edit_product_modal_form')
-    edit_product_modal_form.on('submit', function(e) {
+    // let edit_product_modal_form = $(document).find('.js_edit_product_modal_form')
+
+    $(document).on('submit', '.js_edit_product_modal_form', function(e) {
+
         e.preventDefault();
 
         let this_product = $(document).find('.js_one_product')
@@ -117,6 +118,8 @@ $(document).ready(function() {
 
         let input_checkbox = $(this).find('input[type="checkbox"]');
 
+        let see_again_btn = $(document).find('.js_see_again_btn').data('sub_category_id')
+        let see_again_room_id = $(document).find('.js_see_again_btn').data('room_id')
 
         $.ajax({
             type:method,
@@ -126,6 +129,7 @@ $(document).ready(function() {
             processData: false,
             success: (response) => {
 
+                console.log(response)
                 if (response.error) {
                     var i = 0;
                     span.each(function () {
@@ -135,6 +139,9 @@ $(document).ready(function() {
                     })
                     $(document).find('.message').html(response.error[0] + '</span><span style="margin-left: 18%">' + response.error[1] + '</span>');
                 }
+
+                /** Agar quality_id o'zgargan bo'lsa bu sifatlar ichidan olib tashlash kerak */
+
 
                 if (response.warn){
                     let check = $(document).find('.js_checkbox_error_room_id')
@@ -153,7 +160,18 @@ $(document).ready(function() {
                         $(product).find('tbody tr').eq(1).find('td').last().html(response.data.price)
                         $(product).find('tbody tr').last().find('td').last().html(response.data.code)
 
-                        // $(product).find('.modal').modal('hide')
+                        /** Agar quality_id o'zgargan bo'lsa bu sifatlar ichidan olib tashlash kerak */
+                        if(see_again_btn !== response.data.quality_id) {
+                            $(product).remove()
+                        }
+
+                        let room_ids = response.data.room_id.split(';');
+                        // if (see_again_room_id !== response.data.)
+                        if(!jQuery.inArray(see_again_room_id, room_ids)) {
+                            $(product).remove()
+                        }
+
+                        console.log(room_ids)
                     }
 
                 })
@@ -169,9 +187,10 @@ $(document).ready(function() {
     /** ./edit product to Catalog by modal **/
 
 
-    /** ------------------------- see again btn --------------------------- **/
-    let see_again_btn = $(document).find('.js_see_again_btn')
-    see_again_btn.on('click', function (e) {
+
+    /** ------------------------- see again btn index --------------------------- **/
+    let see_again_btn_index = $(document).find('.ajax_see_again_index')
+    see_again_btn_index.on('click', function (e) {
         e.preventDefault();
 
         let all_products = $(document).find('.js_all_products')
@@ -184,16 +203,13 @@ $(document).ready(function() {
         let sub_category_id = $(this).data('sub_category_id')
 
         let warn_model = $(document).find('#warn_model')
-        console.log(product_count)
-        console.log(product_id)
+
         if (product_count) {
             $.ajax({
                 type: 'POST',
                 url: url,
                 data: {
                     'product_id': product_id,
-                    'segment': segment,
-                    'sub_category_id': sub_category_id,
                     'product_count': product_count
                 },
                 // contentType: false,
@@ -207,7 +223,7 @@ $(document).ready(function() {
                     } else {
                         all_products.append(response.product)
                     }
-                    console.log(response)
+                    // console.log(response)
                 },
                 error: (response) => {
                     console.log(response)
