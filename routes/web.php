@@ -42,7 +42,11 @@ Route::post('/catalog/ajax_edit/{id}', [CatalogController::class, 'ajax_edit'])-
 
 Route::post('/catalog/ajax_delete', [CatalogController::class, 'ajax_delete'])->name('catalog.ajax_delete');
 
-Route::post('/catalog/see_again', [CatalogController::class, 'ajax_see_again'])->name('catalog.ajax_see_again');
+/** SEE AGAIN BTN INDEX **/
+Route::post('/catalog/ajax_see_again_index_room', [CatalogController::class, 'ajax_see_again_index_room'])->name('catalog.ajax_see_again_index_room');
+
+/** SEE AGAIN BTN QUALITY **/
+Route::post('/catalog/ajax_see_again_quality', [CatalogController::class, 'ajax_see_again_quality'])->name('catalog.ajax_see_again_quality');
 
 /******************* ./catalog **********************/
 

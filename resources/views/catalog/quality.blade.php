@@ -118,12 +118,12 @@
                                                 <td>{{ $product['articul'] }}</td>
                                             </tr>
                                             <tr>
-                                                <td>Narxi:</td>
-                                                <td>{{ $product['price'] }}</td>
+                                                <td>Kod:</td>
+                                                <td>{{ $product['code'] }}</td>
                                             </tr>
                                             <tr>
-                                                <td>Kodi:</td>
-                                                <td>{{ $product['code'] }}</td>
+                                                <td>Narx:</td>
+                                                <td>{{ $product['price'] }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -143,7 +143,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form method="post" action="{{ route('catalog.ajax_edit',[$product['id']]) }}" class="js_edit_product_modal_form form-group" enctype="multipart/form-data">
+                                                    <form method="post" action="{{ route('catalog.ajax_edit',[$product['id']]) }}" class="js_edit_product_modal_form_quality form-group" enctype="multipart/form-data">
 
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $product['id'] }}">
@@ -226,10 +226,9 @@
                         @endforeach
 
                     </div>
-                    <a href="{{ route('catalog.ajax_see_again') }}"
-                       data-segment="{{ Request::segment(2) }}"
-                       data-sub_category_id="@if(Request::segment(3)) {{ Request::segment(3) }} @else 1 @endif"
-                       class="btn btn-outline-info btn-block js_see_again_btn">Yana ko'rish</a>
+                    <a href="{{ route('catalog.ajax_see_again_quality') }}"
+                       data-sub_category_id="{{ Request::segment(3) }}"
+                       class="btn btn-outline-info btn-block ajax_see_again">Yana ko'rish</a>
                     @else
                         <p class="text-center text-danger">Mahsulot mavjud emas.</p>
                     @endif

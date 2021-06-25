@@ -44,9 +44,10 @@ class CatalogController extends Controller
 
         $products = DB::table('products')
             ->select('*')
-            ->orderBy('id', 'DESC')
+
+            ->orderBy('created_at', 'DESC')
 //            ->where('room_id', $room_id)
-            ->offset(0)->limit(12)
+            ->skip(0)->take(22)
             ->get();
 
         if ($products) {
@@ -66,6 +67,7 @@ class CatalogController extends Controller
                 $array[$k]['created_at'] = $p->created_at;
                 $array[$k]['updated_at'] = $p->updated_at;
             }
+
         }
 
         return view('catalog.index', compact('title', 'rooms', 'qualities','array','room_id', 'quality_id'));
@@ -85,7 +87,7 @@ class CatalogController extends Controller
             ->select('*')
             ->orderBy('id', 'DESC')
 //            ->where('room_id', $limit_id)
-            ->offset(0)->limit(12)
+            ->skip(0)->take(22)
             ->get();
 
         $array = array();
@@ -122,8 +124,9 @@ class CatalogController extends Controller
         $products = DB::table('products')
             ->select('*')
             ->orderBy('id', 'DESC')
+            ->orderBy('code', 'ASC')
             ->where('quality_id', $limit_id)
-            ->offset(0)->limit(12)
+            ->offset(0)->limit(5)
             ->get();
 
         $array = array();
@@ -293,178 +296,23 @@ class CatalogController extends Controller
     }
 
 
-
-    public function ajax_see_again_index(Request $request)
+    /** INDEX and ROOM **/
+    public function ajax_see_again_index_room(Request $request)
     {
         $qualities = QualityModel::all();
         $rooms = RoomModel::all();
 
         $product_id = $request->product_id;
-        $sub_category_id = $request->sub_category_id ? $request->sub_category_id : 1;
-        $segment = $request->segment;
-        $product_count = $request->product_count;
+        $room_id = $request->sub_category_id ? $request->sub_category_id : 1;
+
 
         $html = '';
-        if (!$segment || $segment == 'room') {
-
-            $products = DB::table('products')
-                ->select('*')
-                ->orderBy('created_at', 'DESC')
-//                ->where('room_id', $sub_category_id)
-                ->where('id', '<', $product_id)
-                ->offset(0)->limit(12)
-                ->get();
-
-            $array = array();
-            foreach ($products as $k => $p) {
-                $array[$k]['id'] = $p->id;
-                $array[$k]['articul'] = $p->articul;
-                $array[$k]['code'] = $p->code;
-                $array[$k]['price'] = $p->price;
-                $array[$k]['image'] = $p->image;
-                $array[$k]['description'] = $p->description;
-                $array[$k]['parent_id'] = $p->parent_id;
-                $array[$k]['quality_id'] = $p->quality_id;
-                $array[$k]['room_id'] = explode(";", $p->room_id);
-                $array[$k]['changed'] = $p->changed;
-                $array[$k]['created_at'] = $p->created_at;
-                $array[$k]['updated_at'] = $p->updated_at;
-            }
-
-            foreach($array as $k => $p) {
-                if (in_array($sub_category_id, $p['room_id'])) {
-                    $html .= '<div class="catalog js_one_product" data-id="' . $p['id'] . '">
-                                <a class="image" data-fancybox="gallery" style="background-image: url(http://yec.almirab.uz/public/uploaded/product/' . $p['image'] . ')" href="http://yec.almirab.uz/public/uploaded/product/' . $p['image'] . '"></a>
-                                <div class="table-btns">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td width="25%">Code:</td>
-                                                <td>' . $p['code'] . '</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Narxi:</td>
-                                                <td>' . $p['price'] . '</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Kodi:</td>
-                                                <td>' . $p['code'] . '</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="edit-delete-btn">
-                                        <a href="" data-toggle="modal" data-target="#edit-model_' . $p['id'] . '" class="btn btn-sm btn-outline-info mr-2" title="Taxrirlash">
-                                            <svg class="c-icon">
-                                                <use xlink:href="http://yec.almirab.uz/public/icons/sprites/free.svg#cil-color-border"></use>
-                                            </svg>
-                                        </a>
-                                        <div class="modal fade" id="edit-model_' . $p['id'] . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="add-model-Lavel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="add-model-Lavel">Olma</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-                                                    </div>
-                                                    <form method="post" action="' . route('catalog.ajax_edit', [$p['id']]) . '" class="js_edit_product_modal_form form-group" enctype="multipart/form-data">
-                                                        <input type="hidden" name="_token" value="'.csrf_token().'">
-                                                        <input type="hidden" name="id" value="' . $p['id'] . '">
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-md-8">
-                                                                    <div class="row">
-                                                                        <div class="col-md-6 mb-2">
-                                                                            <label for="name' . $p['id'] . '">Code</label>
-                                                                            <input type="text" name="name" id="name' . $p['id'] . '" class="form-control" value="' . $p['code'] . '">
-                                                                            <span class="valid-feedback text-danger name_error"></span>
-                                                                        </div>
-                                                                        <div class="col-md-6 mb-2">
-                                                                            <label for="price' . $p['id'] . '">Narx</label>
-                                                                            <input type="text" name="price" id="price' . $p['id'] . '" class="form-control" value="' . $p['price'] . '">
-                                                                            <span class="valid-feedback text-danger price_error"></span>
-                                                                        </div>
-                                                                        <div class="col-md-6 mb-2">
-                                                                            <label for="code' . $p['id'] . '">Kodi</label>
-                                                                            <input type="text" name="code" id="code' . $p['id'] . '" class="form-control" value="' . $p['code'] . '">
-                                                                            <span class="valid-feedback text-danger code_error"></span>
-                                                                        </div>
-                                                                        <div class="col-md-6 mb-2">
-                                                                            <label for="articul' . $p['id'] . '">Artikul</label>
-                                                                            <input type="text" name="articul" id="articul' . $p['id'] . '" class="form-control" value="' . $p['articul'] . '">
-                                                                            <span class="valid-feedback text-danger articul_error"></span>
-                                                                        </div>
-                                                                        <div class="col-md-12 mb-2">
-                                                                            <label for="quality_id' . $p['id'] . '">Sifat</label>
-                                                                            <select type="text" name="quality_id" id="quality_id' . $p['id'] . '" class="form-control">
-                                                                                   <option value="">---</option>';
-
-                                                                foreach ($qualities as $q) {
-                                                                    if ($q['id'] == $p['quality_id'])
-                                                                        $html .= '<option value="' . $q['id'] . '" selected >' . $q['name'] . '</option>';
-                                                                    else
-                                                                        $html .= '<option value="' . $q['id'] . '">' . $q['name'] . '</option>';
-                                                                }
-
-                                                                $html .= '</select>
-                                                                            <span class="valid-feedback text-danger room_id_error"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 offset-md-1">
-                                                                    <label for="rooms' . $p['id'] . '">Xonalar</label>';
-
-                                                                foreach ($rooms as $r) {
-                                                                    $html .= '<div class="form-check mb-1">
-                                                                                    <input class="form-check-input" name="room_id[]" type="checkbox" ';
-                                                                        if(in_array($r['id'], $p['room_id'])) {
-                                                                           $html .='checked';
-                                                                        }
-                                                                        $html .= ' value="' . $r['id'] . '" id="room' . $r['id'] . $p['id'] . '">
-                                                                                    <label class="form-check-label" for="room' . $r['id'] . $p['id'] . '">' . $r['name'] . '</label>
-                                                                                </div>';
-                                                                }
-                                                                $html .= '<span class="text-danger js_checkbox_error_room_id d-none"></span>
-                                                                </div>
-                                                                <div class="col-md-12 col-12">
-                                                                    <label for="image' . $p['id'] . '">Rasm</label>
-                                                                    <div class="custom-file">
-                                                                        <input type="hidden" name="image_hidden" value="' . $p['image'] . '">
-                                                                        <input type="file" class="custom-file-input" name="image" id="image' . $p['id'] . '">
-                                                                        <label class="custom-file-label" for="image' . $p['id'] . '">' . $p['image'] . '</label>
-                                                                    </div>
-                                                                    <span class="valid-feedback text-danger invalid_image">Rasmni yuklang</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer mt-3 pb-0">
-                                                            <button class="btn btn-success btn-square jjbtn">Saqlash</button>
-                                                            <button type="button" class="btn btn-secondary js_modal_closeBtn btn-square" data-dismiss="modal">Bekor qilish</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <a href="#" data-url="' . route('catalog.ajax_delete') . '" data-name="' . $p['name'] . '" data-id="' . $p['id'] . '" class="btn btn-sm js_delete_btn btn-outline-danger" title="O\'chirish" data-toggle="modal" data-target="#delete_notify">
-                                            <svg class="c-icon">
-                                                <use xlink:href="http://yec.almirab.uz/public/icons/sprites/free.svg#cil-trash"></use>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>';
-                }
-            }
-
-        }
-        else if($segment == 'quality') {
-
         $products = DB::table('products')
             ->select('*')
             ->orderBy('created_at', 'DESC')
-            ->where('quality_id', $sub_category_id)
+//                ->where('room_id', $sub_category_id)
             ->where('id', '<', $product_id)
-            ->offset(0)->limit(12)
+            ->skip(0)->take(12)
             ->get();
 
         $array = array();
@@ -484,23 +332,23 @@ class CatalogController extends Controller
         }
 
         foreach($array as $k => $p) {
-
+            if (in_array($room_id, $p['room_id'])) {
                 $html .= '<div class="catalog js_one_product" data-id="' . $p['id'] . '">
                             <a class="image" data-fancybox="gallery" style="background-image: url(http://yec.almirab.uz/public/uploaded/product/' . $p['image'] . ')" href="http://yec.almirab.uz/public/uploaded/product/' . $p['image'] . '"></a>
                             <div class="table-btns">
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td width="25%">Code:</td>
+                                            <td width="25%">Articul:</td>
+                                            <td>' . $p['articul'] . '</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kod:</td>
                                             <td>' . $p['code'] . '</td>
                                         </tr>
                                         <tr>
-                                            <td>Narxi:</td>
+                                            <td>Narx:</td>
                                             <td>' . $p['price'] . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kodi:</td>
-                                            <td>' . $p['code'] . '</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -514,12 +362,12 @@ class CatalogController extends Controller
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="add-model-Lavel">Olma</h5>
+                                                    <h5 class="modal-title" id="add-model-Lavel">'.$p['articul'].'</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
-                                                <form method="post" action="'.route('catalog.ajax_edit', [$p['id']]).'" class="js_edit_product_modal_form form-group" enctype="multipart/form-data">
+                                                <form method="post" action="' . route('catalog.ajax_edit', [$p['id']]) . '" class="js_edit_product_modal_form_index_room form-group" enctype="multipart/form-data">
                                                     <input type="hidden" name="_token" value="'.csrf_token().'">
                                                     <input type="hidden" name="id" value="' . $p['id'] . '">
                                                     <div class="modal-body">
@@ -527,14 +375,24 @@ class CatalogController extends Controller
                                                             <div class="col-md-8">
                                                                 <div class="row">
                                                                     <div class="col-md-6 mb-2">
-                                                                        <label for="name' . $p['id'] . '">Nomi</label>
-                                                                        <input type="text" name="name" id="name' . $p['id'] . '" class="form-control" value="' . $p['code'] . '">
-                                                                        <span class="valid-feedback text-danger name_error"></span>
+                                                                        <label for="quality_id' . $p['id'] . '">Sifat</label>
+                                                                        <select type="text" name="quality_id" id="quality_id' . $p['id'] . '" class="form-control">
+                                                                               <option value="">---</option>';
+
+                                                                    foreach ($qualities as $q) {
+                                                                        if ($q['id'] == $p['quality_id'])
+                                                                            $html .= '<option value="' . $q['id'] . '" selected >' . $q['name'] . '</option>';
+                                                                        else
+                                                                            $html .='<option value="' . $q['id'] . '">' . $q['name'] . '</option>';
+                                                                    }
+
+                                                                $html .= '</select>
+                                                                        <span class="valid-feedback text-danger room_id_error"></span>
                                                                     </div>
                                                                     <div class="col-md-6 mb-2">
-                                                                        <label for="price' . $p['id'] . '">Narx</label>
-                                                                        <input type="text" name="price" id="price' . $p['id'] . '" class="form-control" value="' . $p['price'] . '">
-                                                                        <span class="valid-feedback text-danger price_error"></span>
+                                                                        <label for="articul' . $p['id'] . '">Artikul</label>
+                                                                        <input type="text" name="articul" id="articul' . $p['id'] . '" class="form-control" value="' . $p['articul'] . '">
+                                                                        <span class="valid-feedback text-danger articul_error"></span>
                                                                     </div>
                                                                     <div class="col-md-6 mb-2">
                                                                         <label for="code' . $p['id'] . '">Kodi</label>
@@ -542,62 +400,48 @@ class CatalogController extends Controller
                                                                         <span class="valid-feedback text-danger code_error"></span>
                                                                     </div>
                                                                     <div class="col-md-6 mb-2">
-                                                                        <label for="articul' . $p['id'] . '">Artikul</label>
-                                                                        <input type="text" name="articul" id="articul' . $p['id'] . '" class="form-control" value="' . $p['articul'] . '">
-                                                                        <span class="valid-feedback text-danger articul_error"></span>
+                                                                        <label for="price' . $p['id'] . '">Narx</label>
+                                                                        <input type="text" name="price" id="price' . $p['id'] . '" class="form-control" value="' . $p['price'] . '">
+                                                                        <span class="valid-feedback text-danger price_error"></span>
                                                                     </div>
-                                                                    <div class="col-md-12 mb-2">
-                                                                        <label for="quality_id' . $p['id'] . '">Sifat</label>
-                                                                        <select type="text" name="quality_id" id="quality_id' . $p['id'] . '" class="form-control">
-                                                                               <option value="">---</option>';
-
-                                                                foreach ($qualities as $q) {
-                                                                    if ($q['id'] == $p['quality_id'])
-                                                                        $html .= '<option value="' . $q['id'] . '" selected >' . $q['name'] . '</option>';
-                                                                    else
-                                                                        $html .= '<option value="' . $q['id'] . '">' . $q['name'] . '</option>';
-                                                                }
-
-                                                                $html .= '</select>
-                                                                        <span class="valid-feedback text-danger room_id_error"></span>
+                                                                    <div class="col-md-12 col-12">
+                                                                        <label for="image' . $p['id'] . '">Rasm</label>
+                                                                        <div class="custom-file">
+                                                                            <input type="hidden" name="image_hidden" value="' . $p['image'] . '">
+                                                                            <input type="file" class="custom-file-input" name="image" id="image' . $p['id'] . '">
+                                                                            <label class="custom-file-label" for="image' . $p['id'] . '">' . $p['image'] . '</label>
+                                                                        </div>
+                                                                        <span class="valid-feedback text-danger invalid_image">Rasmni yuklang</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3 offset-md-1">
-                                                                <label for="rooms'.$p['id'].'">Xonalar</label>';
-
-                                                                    foreach ($rooms as $r) {
-                                                                        $html .= '<div class="form-check mb-1">
+                                                                <label for="rooms' . $p['id'] . '">Xonalar</label>
+                                                                <div class="room_checkbox">';
+                                                            foreach ($rooms as $r) {
+                                                                $html .= '<div class="form-check mb-1">
                                                                                 <input class="form-check-input" name="room_id[]" type="checkbox" ';
-                                                                                if(in_array($r['id'], $p['room_id'])) {
-                                                                                    $html .='checked';
-                                                                                }
-                                                                                $html .= ' value="' . $r['id'] . '" id="room' . $r['id'] . $p['id'] . '">
+                                                                    if(in_array($r['id'], $p['room_id'])) {
+                                                                       $html .='checked';
+                                                                    }
+                                                                    $html .= ' value="' . $r['id'] . '" id="room' . $r['id'] . $p['id'] . '">
                                                                                 <label class="form-check-label" for="room' . $r['id'] . $p['id'] . '">' . $r['name'] . '</label>
                                                                             </div>';
-                                                                    }
+                                                            }
                                                             $html .= '<span class="text-danger js_checkbox_error_room_id d-none"></span>
-                                                            </div>
-                                                            <div class="col-md-12 col-12">
-                                                                <label for="image' . $p['id'] . '">Rasm</label>
-                                                                <div class="custom-file">
-                                                                    <input type="hidden" name="image_hidden" value="' . $p['image'] . '">
-                                                                    <input type="file" class="custom-file-input" name="image" id="image' . $p['id'] . '">
-                                                                    <label class="custom-file-label" for="image' . $p['id'] . '">' . $p['image'] . '</label>
                                                                 </div>
-                                                                <span class="valid-feedback text-danger invalid_image">Rasmni yuklang</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer mt-3 pb-0">
-                                                        <button class="btn btn-success btn-square jjbtn">Saqlash</button>
+                                                        <button class="btn btn-success btn-square">Saqlash</button>
                                                         <button type="button" class="btn btn-secondary js_modal_closeBtn btn-square" data-dismiss="modal">Bekor qilish</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#" data-url="'.route('catalog.ajax_delete').'" data-name="'.$p['name'].'" data-id="'.$p['id'].'" class="btn btn-sm js_delete_btn btn-outline-danger" title="O\'chirish" data-toggle="modal" data-target="#delete_notify">
+                                    <a href="#" data-url="' . route('catalog.ajax_delete') . '" data-name="' . $p['articul'] . '" data-id="' . $p['id'] . '" class="btn btn-sm js_delete_btn btn-outline-danger" title="O\'chirish" data-toggle="modal" data-target="#delete_notify">
                                         <svg class="c-icon">
                                             <use xlink:href="http://yec.almirab.uz/public/icons/sprites/free.svg#cil-trash"></use>
                                         </svg>
@@ -605,15 +449,171 @@ class CatalogController extends Controller
                                 </div>
                             </div>
                         </div>';
-
             }
+        }
 
+        return response()->json(['product' => $html]);
+    }
+
+    /** QUALITY **/
+    public function ajax_see_again_quality(Request $request)
+    {
+        $qualities = QualityModel::all();
+        $rooms = RoomModel::all();
+
+        $product_id = $request->product_id;
+        $sub_category_id = $request->sub_category_id;
+        $product_count = $request->product_count;
+
+
+        $products = DB::table('products')
+            ->select('*')
+            ->orderBy('created_at', 'DESC')
+            ->orderBy('code', 'ASC')
+            ->where('quality_id', $sub_category_id)
+            ->where('id', '<', $product_id)
+            ->offset(0)->limit(30)
+            ->get();
+
+        $array = array();
+        foreach ($products as $k => $p) {
+            $array[$k]['id'] = $p->id;
+            $array[$k]['articul'] = $p->articul;
+            $array[$k]['code'] = $p->code;
+            $array[$k]['price'] = $p->price;
+            $array[$k]['image'] = $p->image;
+            $array[$k]['description'] = $p->description;
+            $array[$k]['parent_id'] = $p->parent_id;
+            $array[$k]['quality_id'] = $p->quality_id;
+            $array[$k]['room_id'] = explode(";", $p->room_id);
+            $array[$k]['changed'] = $p->changed;
+            $array[$k]['created_at'] = $p->created_at;
+            $array[$k]['updated_at'] = $p->updated_at;
+        }
+
+        $html = '';
+        foreach($array as $k => $p) {
+
+            $html .= '<div class="catalog js_one_product" data-id="' . $p['id'] . '">
+                            <a class="image" data-fancybox="gallery" style="background-image: url(http://yec.almirab.uz/public/uploaded/product/' . $p['image'] . ')" href="http://yec.almirab.uz/public/uploaded/product/' . $p['image'] . '"></a>
+                            <div class="table-btns">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td width="25%">Articul:</td>
+                                            <td>' . $p['articul'] . '</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kod:</td>
+                                            <td>' . $p['code'] . '</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Narx:</td>
+                                            <td>' . $p['price'] . '</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="edit-delete-btn">
+                                    <a href="" data-toggle="modal" data-target="#edit-model_' . $p['id'] . '" class="btn btn-sm btn-outline-info mr-2" title="Taxrirlash">
+                                        <svg class="c-icon">
+                                            <use xlink:href="http://yec.almirab.uz/public/icons/sprites/free.svg#cil-color-border"></use>
+                                        </svg>
+                                    </a>
+                                    <div class="modal fade" id="edit-model_' . $p['id'] . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="add-model-Lavel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="add-model-Lavel">'.$p['articul'].'</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <form method="post" action="' . route('catalog.ajax_edit', [$p['id']]) . '" class="js_edit_product_modal_form_quality form-group" enctype="multipart/form-data">
+                                                    <input type="hidden" name="_token" value="'.csrf_token().'">
+                                                    <input type="hidden" name="id" value="' . $p['id'] . '">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="quality_id' . $p['id'] . '">Sifat</label>
+                                                                        <select type="text" name="quality_id" id="quality_id' . $p['id'] . '" class="form-control">
+                                                                               <option value="">---</option>';
+                                                                foreach ($qualities as $q) {
+                                                                    if ($q['id'] == $p['quality_id'])
+                                                                        $html .= '<option value="' . $q['id'] . '" selected >' . $q['name'] . '</option>';
+                                                                    else
+                                                                        $html .='<option value="' . $q['id'] . '">' . $q['name'] . '</option>';
+                                                                }
+
+                                                                $html .= '</select>
+                                                                        <span class="valid-feedback text-danger room_id_error"></span>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="articul' . $p['id'] . '">Artikul</label>
+                                                                        <input type="text" name="articul" id="articul' . $p['id'] . '" class="form-control" value="' . $p['articul'] . '">
+                                                                        <span class="valid-feedback text-danger articul_error"></span>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="code' . $p['id'] . '">Kodi</label>
+                                                                        <input type="text" name="code" id="code' . $p['id'] . '" class="form-control" value="' . $p['code'] . '">
+                                                                        <span class="valid-feedback text-danger code_error"></span>
+                                                                    </div>
+                                                                    <div class="col-md-6 mb-2">
+                                                                        <label for="price' . $p['id'] . '">Narx</label>
+                                                                        <input type="text" name="price" id="price' . $p['id'] . '" class="form-control" value="' . $p['price'] . '">
+                                                                        <span class="valid-feedback text-danger price_error"></span>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-12">
+                                                                        <label for="image' . $p['id'] . '">Rasm</label>
+                                                                        <div class="custom-file">
+                                                                            <input type="hidden" name="image_hidden" value="' . $p['image'] . '">
+                                                                            <input type="file" class="custom-file-input" name="image" id="image' . $p['id'] . '">
+                                                                            <label class="custom-file-label" for="image' . $p['id'] . '">' . $p['image'] . '</label>
+                                                                        </div>
+                                                                        <span class="valid-feedback text-danger invalid_image">Rasmni yuklang</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 offset-md-1">
+                                                                <label for="rooms' . $p['id'] . '">Xonalar</label>
+                                                                <div class="room_checkbox">';
+                                                                foreach ($rooms as $r) {
+                                                                    $html .= '<div class="form-check mb-1">
+                                                                                <input class="form-check-input" name="room_id[]" type="checkbox" ';
+                                                                            if(in_array($r['id'], $p['room_id'])) {
+                                                                                $html .='checked';
+                                                                            }
+                                                                                $html .= ' value="' . $r['id'] . '" id="room' . $r['id'] . $p['id'] . '">
+                                                                                <label class="form-check-label" for="room' . $r['id'] . $p['id'] . '">' . $r['name'] . '</label>
+                                                                            </div>';
+                                                                }
+                                                                $html .= '<span class="text-danger js_checkbox_error_room_id d-none"></span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer mt-3 pb-0">
+                                                        <button class="btn btn-success btn-square">Saqlash</button>
+                                                        <button type="button" class="btn btn-secondary js_modal_closeBtn btn-square" data-dismiss="modal">Bekor qilish</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" data-url="' . route('catalog.ajax_delete') . '" data-name="' . $p['articul'] . '" data-id="' . $p['id'] . '" class="btn btn-sm js_delete_btn btn-outline-danger" title="O\'chirish" data-toggle="modal" data-target="#delete_notify">
+                                        <svg class="c-icon">
+                                            <use xlink:href="http://yec.almirab.uz/public/icons/sprites/free.svg#cil-trash"></use>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>';
         }
 
 
         return response()->json(['product' => $html]);
-//        return response()->json(['segment' => $segment, 'product_id' => $product_id, 'sub_category_id' => $sub_category_id, 'count' => $product_count]);
     }
-
 
 }

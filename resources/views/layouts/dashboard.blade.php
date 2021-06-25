@@ -174,10 +174,12 @@
 <script src="{{ asset('DataTables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('DataTables/js/dataTables.fixedColumns.min.js') }}"></script>
 
-
 <script src="{{ asset('js/functionDelete.js?'.time()) }}"></script>
 
+<script src="{{ asset('js/functionCatalog.js?'.time()) }}"></script>
+
 <script src="{{ asset('js/functions.js?'.time()) }}"></script>
+
 <div class=""></div>
 </body>
 </html>

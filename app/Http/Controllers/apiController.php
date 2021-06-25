@@ -67,11 +67,10 @@ class apiController extends Controller
         $array = array();
         foreach($products as $k => $p) {
             $array[$k]['id'] = $p->id;
-            $array[$k]['name'] = $p->name;
-            $array[$k]['code'] = $p->code;
             $array[$k]['articul'] = $p->articul;
-            $array[$k]['image'] = "http://yec.almirab.uz/public/uploaded/product/".$p->image;
+            $array[$k]['code'] = $p->code;
             $array[$k]['price'] = $p->price;
+            $array[$k]['image'] = "http://yec.almirab.uz/public/uploaded/product/".$p->image;
             $array[$k]['parent_id'] = $p->parent_id;
             $array[$k]['quality_id'] = $p->quality_id;
             $array[$k]['room_id'] = $p->room_id;

@@ -30,19 +30,17 @@ class SearchController extends Controller
         {
             $products = DB::table('products')
                 ->select('*')
-                ->where('name', 'like', '%' . $search . '%')
-                ->orWhere('code', 'like', '%' . $search . '%')
                 ->orWhere('articul', 'like', '%' . $search . '%')
+                ->orWhere('code', 'like', '%' . $search . '%')
                 ->orWhere('price', 'like', '%' . $search . '%')
                 ->get();
 
             $array = array();
             foreach($products as $k => $p) {
                 $array[$k]['id'] = $p->id;
-                $array[$k]['name'] = $p->name;
+                $array[$k]['articul'] = $p->articul;
                 $array[$k]['code'] = $p->code;
                 $array[$k]['price'] = $p->price;
-                $array[$k]['articul'] = $p->articul;
                 $array[$k]['image'] = $p->image;
                 $array[$k]['description'] = $p->description;
                 $array[$k]['parent_id'] = $p->parent_id;
