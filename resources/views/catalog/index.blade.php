@@ -203,7 +203,7 @@
                                                                                 </div>
                                                                             @endforeach
                                                                         </div>
-                                                                        <span class="text-danger js_checkbox_error_room_id d-none">salom</span>
+                                                                        <span class="text-danger room_checkbox_error"></span>
                                                                     </div>
                                                                 </div>
                                                             </div>

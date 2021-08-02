@@ -16,12 +16,12 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-toggle.css') }}" rel="stylesheet">
 
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
+{{--    <link rel="stylesheet" href="{{ asset('css/coreui.min.css') }}" crossorigin="anonymous">--}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 
 
@@ -163,13 +163,18 @@
     });
 </script>
 
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+<script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
+<!--[if IE]><!-->
+<script src="{{ asset('js/svgxuse.min.js') }}"></script>
+<!--<![endif]-->
 
+<script src="{{ asset('js/coreui-chartjs.bundle.js') }}"></script>
+<script src="{{ asset('js/coreui-utils.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 {{--fansy Box --}}
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+<script src="{{ asset('js/bootstrap-toggle.min.js') }}"></script>
 
 <script src="{{ asset('DataTables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('DataTables/js/dataTables.fixedColumns.min.js') }}"></script>

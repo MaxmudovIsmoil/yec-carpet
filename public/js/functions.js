@@ -172,7 +172,7 @@ $(document).ready(function() {
                 }
                 else{
                     $('.js_user_ddd_modal_form')[0].reset();
-                    console.log(data.msg);
+                    // console.log(data.msg);
                 }
 
             },

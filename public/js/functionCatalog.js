@@ -27,30 +27,32 @@ $(document).ready(function() {
             processData: false,
             success: (response) => {
 
-
                 if (response.status == 1)
                     location.reload();
 
-                // $('#add-model .modal-body').css('padding-bottom','0px')
+                $('#add-model .modal-body').css('padding-bottom','0px')
                 if (response.status == 0) {
 
                     let span = $(document).find('.valid-feedback');
                     var i = 0;
                     span.each(function() {
                         $(this).addClass('d-block')
-                        $(this).html(response.message[i])
+                        $(this).html(response.error[i])
                         i++
+
                     })
-                    $(document).find('.message').html(response.message[0]+'</span><span style="margin-left: 18%">'+response.message[1]+'</span>');
+                    // console.log(response)
+                    $(document).find('.message').html(response.error[0]+'</span><span style="margin-left: 18%">'+response.error[1]+'</span>');
 
                 }
-                if (response.warn){
-                    let check = $(document).find('.room_checkbox_error')
-                    check.html(response.warn);
-                }
+                // if (response.warn){
+                //     let check = $(document).find('.room_checkbox_error')
+                //     check.html(response.warn);
+                // }
 
             },
             error: (response) => {
+
                 console.log(response);
             }
         });
@@ -138,8 +140,8 @@ $(document).ready(function() {
                         $(product).find('.image').css('background-image', "url('"+img_src+"')")
 
                         $(product).find('tbody tr').first().find('td').last().html(response.data.articul)
-                        $(product).find('tbody tr').eq(1).find('td').last().html(response.data.price)
-                        $(product).find('tbody tr').last().find('td').last().html(response.data.code)
+                        $(product).find('tbody tr').eq(1).find('td').last().html(response.data.code)
+                        $(product).find('tbody tr').last().find('td').last().html(response.data.price)
 
                         /** Agar room_id o'zgargan bo'lsa bu Xonabi ichidan olib tashlash kerak */
                         let room_ids = response.data.room_id.split(';');
@@ -246,8 +248,8 @@ $(document).ready(function() {
                         $(product).find('.image').css('background-image', "url('"+img_src+"')")
 
                         $(product).find('tbody tr').first().find('td').last().html(response.data.articul)
-                        $(product).find('tbody tr').eq(1).find('td').last().html(response.data.price)
-                        $(product).find('tbody tr').last().find('td').last().html(response.data.code)
+                        $(product).find('tbody tr').eq(1).find('td').last().html(response.data.code)
+                        $(product).find('tbody tr').last().find('td').last().html(response.data.price)
 
                         /** Agar quality_id o'zgargan bo'lsa bu Sifatni ichidan olib tashlash kerak */
                         if (!(response.data.quality_id == see_again_quality_id)) {
@@ -284,7 +286,7 @@ $(document).ready(function() {
 
         let warn_model = $(document).find('#warn_model')
 
-        console.log(product_count)
+        // console.log(product_count)
         if (product_count) {
             $.ajax({
                 type: 'POST',

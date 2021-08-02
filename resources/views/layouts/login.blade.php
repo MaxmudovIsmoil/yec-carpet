@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" crossorigin="anonymous">
 
 </head>
 <body>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+{{--    <script src="https://unpkg.com/@popperjs/core@2"></script>--}}
+{{--    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>--}}
 
 </body>

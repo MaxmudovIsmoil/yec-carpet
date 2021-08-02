@@ -48,14 +48,14 @@
                                                         <span class="valid-feedback text-danger articul_error"></span>
                                                     </div>
                                                     <div class="col-md-6 mb-2">
-                                                        <label for="price">Narx</label>
-                                                        <input type="text" name="price" id="price" class="form-control">
-                                                        <span class="valid-feedback text-danger price_error"></span>
-                                                    </div>
-                                                    <div class="col-md-6 mb-2">
                                                         <label for="code">Kodi</label>
                                                         <input type="text" name="code" id="code" class="form-control">
                                                         <span class="valid-feedback text-danger code_error"></span>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label for="price">Narx</label>
+                                                        <input type="text" name="price" id="price" class="form-control">
+                                                        <span class="valid-feedback text-danger price_error"></span>
                                                     </div>
                                                     <div class="col-md-12 col-12">
                                                         <label for="image">Rasm</label>
@@ -80,7 +80,7 @@
                                                     </div>
                                                     @endforeach
                                                 </div>
-                                                <span class="text-danger js_checkbox_error_room_id d-none"></span>
+                                                <span class="text-danger room_checkbox_error"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                                                             </div>
                                                                         @endforeach
                                                                     </div>
-                                                                    <span class="text-danger js_checkbox_error_room_id d-none">salom</span>
+                                                                    <span class="text-danger room_checkbox_error"></span>
                                                                 </div>
 
                                                             </div>

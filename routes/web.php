@@ -30,7 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 /******************** Catalog ************************/
 
-Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/catalog/', [CatalogController::class, 'index'])->name('catalog.index');
 
 Route::get('/catalog/room/{id}', [CatalogController::class, 'room'])->name('catalog.room');
 

@@ -149,6 +149,8 @@
 
                             </tbody>
                         </table>
+                    @else
+                        <h6 class="text-center text-danger">Ma'lumot topilmadi</h6>
                     @endif
 
                 </div>

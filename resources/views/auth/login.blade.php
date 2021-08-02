@@ -21,8 +21,8 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <input type="text" name="username" class="form-control @error('login') is-invalid @enderror" placeholder="Login" required>
-                                    @error('login')
+                                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Login" required>
+                                    @error('username')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
