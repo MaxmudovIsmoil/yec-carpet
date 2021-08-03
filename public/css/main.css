@@ -74,35 +74,30 @@
 /* One catalog */
 .catalog{
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     padding: 0px;
-    width: 48.5%;
-    /*height: 25% !important;*/
+    width: 32%;
+    margin-left: .6%;
+    margin-right: .6%;
     border: 1px solid lightgray;
 }
 
-.catalog:nth-child(odd) {
-    margin-right: 1%;
-}
-.catalog:nth-child(even) {
-    margin-left: 1.5%;
-}
 
 .catalog .image{
-    width: 60%;
+    width: 46%;
     background-size: 100% 100% !important;
     background-repeat: no-repeat;
-    /*transform: rotate(90deg) !important;*/
 }
 
+
 .catalog .table-btns {
-    width: 40%;
+    width: 54%;
     background: #d0e9f1c7;
     padding: 10px;
 }
 
 .catalog .table-btns .table {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     width: 100%;
 }
 
@@ -138,29 +133,14 @@
         width: 350px;
     }
 
-
-    /* One catalog */
-    .catalog{
-        margin-bottom: 22px;
-        width: 48.5%;
-    }
-
-    .catalog:nth-child(odd) {
-        margin-right: 1%;
-    }
-    .catalog:nth-child(even) {
-        margin-left: 1.5%;
-    }
-
-
     .catalog .image{
-        width: 55%;
+        width: 45%;
         background-size: 100% 100% !important;
         background-repeat: no-repeat;
     }
 
     .catalog .table-btns {
-        width: 45%;
+        width: 55%;
         padding: 10px 10px 10px 12px;
     }
 
@@ -177,9 +157,9 @@
 
 @media (min-width: 1100px) and (max-width: 1199px) {
 
-    /*body{*/
-    /*    background: green !important;*/
-    /*}*/
+    body{
+        background: green !important;
+    }
 
     .c-header ul.d-none.d-lg-block {
         margin-right: 16%;
@@ -190,7 +170,8 @@
 
     /* One catalog */
     .catalog{
-        width: 48%;
+        width: 47.5%;
+        margin-bottom: 20px;
     }
 
     .catalog:nth-child(odd) {
@@ -201,13 +182,13 @@
     }
 
     .catalog .image{
-        width: 55%;
+        width: 45.1%;
         background-size: 100% 100% !important;
         background-repeat: no-repeat;
     }
 
     .catalog .table-btns {
-        width: 45%;
+        width: 55%;
         padding: 8px;
     }
 
@@ -238,7 +219,8 @@
     }
     /* One catalog */
     .catalog{
-        width: 48%;
+        width: 47.5%;
+        margin-bottom: 20px;
     }
 
     .catalog:nth-child(odd) {
@@ -249,13 +231,14 @@
     }
 
     .catalog .image{
-        width: 55%;
+        width: 45.1%;
         background-size: 100% 100% !important;
         background-repeat: no-repeat;
     }
 
+
     .catalog .table-btns {
-        width: 45%;
+        width: 55%;
         padding: 8px;
     }
 
@@ -266,10 +249,117 @@
 
     .catalog .table-btns .table tr td{
         padding: 5px;
-        font-size: 10px;
+        font-size: 12px;
     }
 }
 
+@media (max-width: 991px) {
+
+    body{
+        background: orange !important;
+    }
+    .c-header ul.d-none.d-lg-block {
+        margin-right: 10%;
+    }
+    .c-header ul.d-none.d-lg-block h2 {
+        width: 300px;
+    }
+    .btnAdd{
+        margin-left: 30%;
+    }
+    /* One catalog */
+    .catalog{
+        width: 47.5%;
+        margin-bottom: 20px;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 1.5%;
+    }
+    .catalog:nth-child(even) {
+        margin-left: 1.5%;
+    }
+
+    .catalog .image{
+        width: 45.1%;
+        background-size: 100% 100% !important;
+        background-repeat: no-repeat;
+    }
+
+
+    .catalog .table-btns {
+        width: 55%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .catalog .table-btns .table tr td{
+        padding: 5px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    body{
+        background: gray !important;
+    }
+    .c-header ul.d-none.d-lg-block {
+        margin-right: 10%;
+    }
+    .c-header ul.d-none.d-lg-block h2 {
+        width: 300px;
+    }
+    .btnAdd{
+        margin-left: 0%;
+    }
+
+    /* One catalog */
+    .catalog{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .catalog:nth-child(odd) {
+        margin-right: 0%;
+    }
+    .catalog:nth-child(even) {
+        margin-left: 0%;
+    }
+
+    .catalog .image{
+        width: 45.1%;
+        background-size: 100% 100% !important;
+        background-repeat: no-repeat;
+    }
+
+
+    .catalog .table-btns {
+        width: 55%;
+        padding: 8px;
+    }
+
+    .catalog .table-btns .table {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .catalog .table-btns .table tr td{
+        padding: 5px;
+        font-size: 12px;
+    }
+    .c-header-brand .title{
+        font-size: 14px;
+    }
+    .search_btn {
+        padding: 5px 7px 5px 7px;
+    }
+
+}
 
 
 

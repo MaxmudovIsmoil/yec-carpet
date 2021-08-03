@@ -70,8 +70,8 @@ class ApiController extends Controller
             $array[$k]['articul'] = $p->articul;
             $array[$k]['code'] = $p->code;
             $array[$k]['price'] = $p->price;
-            $array[$k]['room_image'] = "http://yec.almirab.uz/public/uploaded/product/".$p->room_image;
-            $array[$k]['quality_image'] = "http://yec.almirab.uz/public/uploaded/product/".$p->quality_image;
+            $array[$k]['room_image'] = $p->room_image;
+            $array[$k]['quality_image'] = $p->quality_image;
             $array[$k]['parent_id'] = $p->parent_id;
             $array[$k]['quality_id'] = $p->quality_id;
             $array[$k]['room_id'] = $p->room_id;

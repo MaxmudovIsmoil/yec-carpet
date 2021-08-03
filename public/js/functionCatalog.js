@@ -41,7 +41,7 @@ $(document).ready(function() {
                         i++
 
                     })
-                    // console.log(response)
+                    console.log(response)
                     $(document).find('.message').html(response.error[0]+'</span><span style="margin-left: 18%">'+response.error[1]+'</span>');
 
                 }
@@ -135,9 +135,18 @@ $(document).ready(function() {
                 this_product.each(function(index, product) {
 
                     if ($(product).data('id') == response.id) {
-                        let img_src = 'http://yec.almirab.uz/public/uploaded/product/'+response.data.image;
-                        $(product).find('.image').attr('href', img_src)
-                        $(product).find('.image').css('background-image', "url('"+img_src+"')")
+                        console.log(response)
+                        let room_image = ''
+                        if (response.data.room_image) {
+                            room_image = response.data.room_image;
+                        }
+                        else {
+                            room_image = 'no-image.png';
+                        }
+                        let room_img_src = 'http://yec.almirab.uz/public/uploaded/product/'+room_image;
+                        $(product).find('.room_image').attr('href', room_img_src)
+                        $(product).find('.room_image').css('background-image', "url('"+room_img_src+"')")
+
 
                         $(product).find('tbody tr').first().find('td').last().html(response.data.articul)
                         $(product).find('tbody tr').eq(1).find('td').last().html(response.data.code)
@@ -216,6 +225,8 @@ $(document).ready(function() {
 
         let see_again_quality_id = $(document).find('.ajax_see_again').data('sub_category_id')
 
+        console.log(see_again_quality_id)
+
         $.ajax({
             type:method,
             url: url,
@@ -243,16 +254,24 @@ $(document).ready(function() {
                 this_product.each(function(index, product) {
 
                     if ($(product).data('id') == response.id) {
-                        let img_src = 'http://yec.almirab.uz/public/uploaded/product/'+response.data.image;
-                        $(product).find('.image').attr('href', img_src)
-                        $(product).find('.image').css('background-image', "url('"+img_src+"')")
+                        console.log(response.data.quality_id)
+                        var room_image = '';
+                        if (response.data.room_image) {
+                            room_image = response.data.room_image;
+                        }
+                        else {
+                            room_image = 'no-image.png';
+                        }
+                        let room_img_src = 'http://yec.almirab.uz/public/uploaded/product/'+room_image;
+                        $(product).find('.room_image').attr('href', room_img_src)
+                        $(product).find('.room_image').css('background-image', "url('"+room_img_src+"')")
 
                         $(product).find('tbody tr').first().find('td').last().html(response.data.articul)
                         $(product).find('tbody tr').eq(1).find('td').last().html(response.data.code)
                         $(product).find('tbody tr').last().find('td').last().html(response.data.price)
 
                         /** Agar quality_id o'zgargan bo'lsa bu Sifatni ichidan olib tashlash kerak */
-                        if (!(response.data.quality_id == see_again_quality_id)) {
+                        if (response.data.quality_id != see_again_quality_id) {
                             $(product).remove()
                         }
                     }

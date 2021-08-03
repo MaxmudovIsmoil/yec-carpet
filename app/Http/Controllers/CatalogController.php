@@ -143,7 +143,6 @@ class CatalogController extends Controller
     public function ajax_add(Request $request)
     {
         $rules = $this->validateData();
-
         $error = Validator::make($request->all(), $rules);
 
         if ($error->fails()) {
@@ -152,19 +151,14 @@ class CatalogController extends Controller
                 'error' => $error->errors()->all(),
             ]);
         }
-        else {
-
+        else{
             $room_image = $request->file('room_image');
-            if ($room_image) {
-                $room_image_new_name = 'room_product'.rand() .'.'.$room_image->getClientOriginalExtension();
-                $room_image->move(public_path('uploaded/product/'), $room_image_new_name);
-            }
+            $room_image_new_name = 'product'.rand() .'.'.$room_image->getClientOriginalExtension();
+            $room_image->move(public_path('uploaded/product/'), $room_image_new_name);
 
-
-            $quality_image = $request->file('quality_image');
-            $quality_image_new_name = 'quality_product'.rand() .'.'.$room_image->getClientOriginalExtension();
-            $quality_image->move(public_path('uploaded/product/'), $quality_image_new_name);
-
+//            if (!$request->room_id) {
+//                return response()->json(['warn' => "Xonani tanlang"]);
+//            }
 
             if ($request->room_id)
                 $room_ids = implode(";", $request->room_id);
@@ -180,8 +174,8 @@ class CatalogController extends Controller
                     'quality_id'=> $request->quality_id,
                     'description'=> '',
                     'changed'   => time(),
-                    'room_image'=> isset($room_image_new_name) ? $room_image_new_name : '',
-                    'quality_image'=> $quality_image_new_name
+                    'room_image'=> $room_image_new_name,
+                    'quality_image'=> '',
                 ]);
 
                 return response()->json([
@@ -193,7 +187,7 @@ class CatalogController extends Controller
                 return response()->json([
                     'status' => 2,
                     'error' => $exception,
-                    ]);
+                ]);
             }
         }
     }
@@ -207,49 +201,45 @@ class CatalogController extends Controller
      */
     public function ajax_edit(Request $request)
     {
-        $rules = array(
-            'articul'   => 'required|string',
-            'code'      => 'required|string',
-            'price'     => 'required|string',
-            'quality_id'=> 'integer',
-        );
-        $error = Validator::make($request->all(), $rules);
-
-        if ($error->fails()) {
-            return response()->json(['error' => $error->errors()->all()]);
-        }
-
         $room_image_name = $request->room_image_hidden;
         $room_image = $request->file('room_image');
-        if ($room_image != '') {
-//            $rules = $this->validateData();
 
+        if ($room_image != '') {
+            $rules = $this->validateData();
             $room_old_image = CatalogModel::find($request->id);
+
             $room_image_old_path = public_path("uploaded/product/{$room_old_image->room_image}");
             if (file_exists($room_image_old_path)) {
                 unlink($room_image_old_path);
             }
 
-            $room_image_name = 'product'.rand().'.'.$room_image->getClientOriginalExtension();
-            $room_image->move(public_path('uploaded/product/'), $room_image_name);
-        }
+            $error = Validator::make($request->all(), $rules);
 
-        $quality_image_name = $request->quality_image_hidden;
-        $quality_image = $request->file('quality_image');
-
-        if ($quality_image != '') {
-//            $rules = $this->validateData();
-
-            $quality_old_image = CatalogModel::find($request->id);
-            $quality_image_old_path = public_path("uploaded/product/{$room_old_image->quality_image}");
-            if (file_exists($quality_image_old_path)) {
-                unlink($quality_image_old_path);
+            if ($error->fails()) {
+                return response()->json(['error' => $error->errors()->all()]);
             }
 
-            $quality_image_name = 'product'.rand().'.'.$quality_image->getClientOriginalExtension();
-            $quality_image->move(public_path('uploaded/product/'), $quality_image_name);
+            $room_image_name = 'product'.rand().'.'.$room_image->getClientOriginalExtension();
+            $room_image->move(public_path('uploaded/product/'), $room_image_name);
+
+        }
+        else{
+            $rules = array(
+                'articul'   => 'required|string',
+                'code'      => 'required|string',
+                'price'     => 'required|string',
+                'quality_id'=> 'integer',
+            );
+            $error = Validator::make($request->all(), $rules);
+
+            if ($error->fails()) {
+                return response()->json(['error' => $error->errors()->all()]);
+            }
         }
 
+//        if (!$request->room_id) {
+//            return response()->json(['warn' => "Xonani tanlang"]);
+//        }
 
         if ($request->room_id)
             $room_ids = implode(";", $request->room_id);
@@ -264,8 +254,7 @@ class CatalogController extends Controller
             'room_id'   => $room_ids,
             'quality_id'=> $request->quality_id,
             'changed'   => time(),
-            'room_image'=> isset($room_image_name) ? $room_image_name : '',
-            'quality_image'=> $quality_image_name
+            'room_image'=> $room_image_name,
         );
 
         CatalogModel::whereId($request->id)->update($form_data);
@@ -274,8 +263,6 @@ class CatalogController extends Controller
 
     }
 
-
-
     public function validateData()
     {
         return array(
@@ -283,8 +270,7 @@ class CatalogController extends Controller
             'code'      => 'required|string',
             'price'     => 'required|string',
             'quality_id'=> 'integer',
-//            'room_image' => 'required|image|mimes:jpeg,png,jpg',
-            'quality_image' => 'required|image|mimes:jpeg,png,jpg'
+            'room_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         );
     }
 
@@ -299,14 +285,9 @@ class CatalogController extends Controller
         $id = $request->id;
         $product = CatalogModel::findOrFail($id);
 
-        $room_image_path = public_path("uploaded/product/{$product->room_image}");
-        if (file_exists($room_image_path)) {
-            unlink($room_image_path);
-        }
-
-        $quality_image_path = public_path("uploaded/product/{$product->quality_image}");
-        if (file_exists($quality_image_path)) {
-            unlink($quality_image_path);
+        $image_path = public_path("uploaded/product/{$product->room_image}");
+        if (file_exists($image_path)) {
+            unlink($image_path);
         }
 
         $product->delete();

@@ -546,10 +546,10 @@ $(document).ready(function() {
             data: data,
             dataType: "json",
             success: function(data) {
-                console.log(data)
+                // console.log(data)
             },
             error: function (data) {
-                console.log(data)
+                // console.log(data)
             }
         });
 
