@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\Catalog2Controller;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\QualityController;
 use App\Http\Controllers\TermPaymentController;
@@ -30,7 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 /******************** Catalog ************************/
 
-Route::get('/catalog/', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
 
 Route::get('/catalog/room/{id}', [CatalogController::class, 'room'])->name('catalog.room');
 
@@ -49,6 +50,18 @@ Route::post('/catalog/ajax_see_again_index_room', [CatalogController::class, 'aj
 Route::post('/catalog/ajax_see_again_quality', [CatalogController::class, 'ajax_see_again_quality'])->name('catalog.ajax_see_again_quality');
 
 /******************* ./catalog **********************/
+
+/******************* ./catalog2 **********************/
+
+Route::get('/catalog2/{id}', [Catalog2Controller::class, 'index'])->name('catalog2.index');
+
+Route::post('/catalog2/ajax_add', [Catalog2Controller::class, 'ajax_add'])->name('catalog2.ajax_add');
+
+Route::post('/catalog2/ajax_edit/{id}', [Catalog2Controller::class, 'ajax_edit'])->name('catalog2.ajax_edit');
+
+Route::post('/catalog2/ajax_delete', [Catalog2Controller::class, 'ajax_delete'])->name('catalog2.ajax_delete');
+
+/******************* ./catalog2 **********************/
 
 
 /******************** Room ************************/
@@ -110,9 +123,13 @@ Route::post('/user/update_password', [UserController::class, 'update_password'])
 
 /******************** Search product ************************/
 
-Route::get('/search/{name?}', [SearchController::class, 'index'])->name('search.index');
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 
-Route::post('/search/ajax_delete', [SearchController::class, 'ajax_delete'])->name('search.ajax_delete');
+Route::post('/search/products', [SearchController::class, 'products'])->name('search.products');
+
+Route::post('/search/ajax_product_delete', [SearchController::class, 'ajax_product_delete'])->name('search.ajax_product_delete');
+
+Route::post('/search/ajax_product2_delete', [SearchController::class, 'ajax_product2_delete'])->name('search.ajax_product2_delete');
 
 /******************* ./Search product **********************/
 

@@ -24,8 +24,8 @@ delete_form.on('submit', function (e) {
 
 
     $.ajax({
-        type:"POST",
         url: url,
+        type: "POST",
         data: { 'id': id },
         success: (response) => {
 

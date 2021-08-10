@@ -26,6 +26,6 @@ class HomeController extends Controller
     {
         $title = "Bosh sahifa";
 
-        return view('home', compact('title', 'rooms'));
+        return view('home', compact('title'));
     }
 }

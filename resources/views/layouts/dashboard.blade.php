@@ -36,7 +36,7 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
     <div class="c-sidebar-brand d-md-down-none">YEC catalog</div>
     <ul class="c-sidebar-nav ps ps--active-y">
-        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'catalog') bg-primary @endif">
+        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'catalog' || Request::segment(1) == 'catalog2') bg-primary @endif">
             <a class="c-sidebar-nav-link @if( Request::segment(1) == 'catalog') text-white @endif" href="{{ route('catalog.index') }}">
                 <svg class="c-icon mr-2">
                     <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-layers') }}"></use>
@@ -101,13 +101,17 @@
 
 
         <ul class="c-header-nav mfs-auto">
-            @if(Request::segment(1) == 'catalog')
+            @if(Request::segment(1) == 'catalog' || Request::segment(1) == 'catalog2')
                 <a href="{{ route('search.index') }}" class="btn btn-outline-info search_btn mr-3">Izlash</a>
             @endif
 
             <li class="c-header-nav-item dropdown mr-4">
                 <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span style="font-weight: 600; font-size: 18px;">{{ Auth::user()->username }}</span>
+                    <span style="font-weight: 600; font-size: 16px;">
+                        {{ Auth::user()->username }} <svg class="c-icon mfe-2">
+                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-caret-bottom') }}"></use>
+                        </svg>
+                    </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right pt-0">
                     <div class="dropdown-header bg-light py-2"><strong>Sozlamalar</strong></div>
@@ -122,7 +126,7 @@
                        document.getElementById('logout-form').submit();">
                         <svg class="c-icon mr-2">
                             <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-account-logout') }}"></use>
-                        </svg> {{ __('Logout') }}
+                        </svg> {{ __('Chiqish') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf

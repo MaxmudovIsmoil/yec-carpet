@@ -31,7 +31,7 @@
                     @auth
                         <li class="nav-item"><a class="nav-link active" href="{{ route('catalog.index') }}">Home</a></li>
                     @else
-                        <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="{{ url('login') }}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-outline-primary" href="{{ url('login') }}">Kirish</a></li>
                     @endauth
                 @endif
             </ul>
@@ -43,16 +43,16 @@
                     <div class="row">
                         <div class="col-sm-12 col-xl-12">
                             <div class="card">
-                                <div class="card-header"> Jumbotron
-                                    <div class="card-header-actions"><a class="card-header-action" href="https://coreui.io/docs/components/bootstrap-jumbotron/" target="_blank"><small class="text-muted">docs</small></a></div>
-                                </div>
+{{--                                <div class="card-header">--}}
+{{--                                    <div class="card-header-actions"><a class="card-header-action" href="https://coreui.io/docs/components/bootstrap-jumbotron/" target="_blank"><small class="text-muted"></small></a></div>--}}
+{{--                                </div>--}}
                                 <div class="card-body">
                                     <div class="jumbotron">
-                                        <h1 class="display-3">YEC Yasham Erkaplan Carpet</h1>
-                                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                                        <hr class="my-4">
-                                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                                        <p class="lead"><a class="btn btn-primary btn-lg" href="http://yec.uz" role="button">yec.uz</a></p>
+                                        <h1 class="display-3 text-center">YEC Yasham Erkaplan Carpet</h1>
+{{--                                        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>--}}
+{{--                                        <hr class="my-4">--}}
+{{--                                        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>--}}
+{{--                                        <p class="lead"><a class="btn btn-primary btn-lg" href="http://yec.uz" role="button">yec.uz</a></p>--}}
                                     </div>
                                 </div>
                             </div>

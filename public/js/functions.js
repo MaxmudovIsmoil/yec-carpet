@@ -292,9 +292,9 @@ $(document).ready(function() {
 /** ---------------------------------------- Search product ------------------------------------------------------- **/
 
     $('#dataTable_search').DataTable({
-        paging: false,
-        pageLength: 100,
-        lengthChange: true,
+        paging: true,
+        pageLength: 10,
+        lengthChange: false,
         searching: false,
         ordering: true,
         info: false,
@@ -302,7 +302,7 @@ $(document).ready(function() {
         language: {
             search: "",
             // searchPlaceholder: " Izlash...",
-            // sLengthMenu: "Кўриш _MENU_ тадан",
+            sLengthMenu: "Кўриш _MENU_ тадан",
             // sInfo: "Ko'rish _START_ dan _END_ gacha _TOTAL_ jami",
             emptyTable: "Ma'lumot mavjud emas",
         }
@@ -379,7 +379,13 @@ $(document).ready(function() {
                 this_tr.each(function(index, tr) {
 
                     if ($(tr).data('id') == response.id) {
-                        let img_src = 'http://yec.almirab.uz/public/uploaded/product/'+response.data.image;
+                        let img_src = ''
+                        if (response.data.room_image) {
+                            img_src = 'http://yec.almirab.uz/public/uploaded/product/'+response.data.room_image;
+                        } else if (response.data.image) {
+                            img_src = 'http://yec.almirab.uz/public/uploaded/product2/'+response.data.image;
+                        }
+
                         $(tr).find('.image').attr('href', img_src)
                         $(tr).find('.image').css('background-image', "url('"+img_src+"')")
 

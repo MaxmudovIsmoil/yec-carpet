@@ -25,4 +25,6 @@ Route::get('quality', [ApiController::class, 'api_quality']);
 
 Route::get('product', [ApiController::class, 'api_product']);
 
+Route::get('product2', [ApiController::class, 'api_product2']);
+
 Route::get('term_payment', [ApiController::class, 'api_term_payment']);

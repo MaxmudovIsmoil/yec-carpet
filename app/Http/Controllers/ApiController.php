@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product2;
 use App\Models\TermPaymentModel;
 use Illuminate\Http\Request;
 use App\Models\RoomModel;
@@ -82,6 +83,33 @@ class ApiController extends Controller
 
         return $array;
     }
+
+
+    /**
+     * get name, code, articul, price, room_id, quality_id, image and path in Products.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function api_product2(Request $request)
+    {
+
+        $products = Product2::all();
+        $array = array();
+        foreach($products as $k => $p) {
+            $array[$k]['id'] = $p->id;
+            $array[$k]['articul'] = $p->articul;
+            $array[$k]['code'] = $p->code;
+            $array[$k]['price'] = $p->price;
+            $array[$k]['image'] = $p->image;
+            $array[$k]['quality_id'] = $p->quality_id;
+            $array[$k]['changed'] = $p->changed;
+            $array[$k]['updated_at'] = $p->updated_at;
+            $array[$k]['created_at'] = $p->created_at;
+        }
+
+        return $array;
+    }
+
 
     /**
      * get name, code, articul, price, room_id, quality_id, image and path in Products.
