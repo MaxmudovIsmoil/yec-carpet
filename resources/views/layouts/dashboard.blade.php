@@ -40,7 +40,7 @@
             <a class="c-sidebar-nav-link @if( Request::segment(1) == 'catalog') text-white @endif" href="{{ route('catalog.index') }}">
                 <svg class="c-icon mr-2">
                     <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-layers') }}"></use>
-                </svg> <span>Kataloglar</span>
+                </svg> <span>Katalog</span>
             </a>
         </li>
         <li class="c-sidebar-nav-item @if( Request::segment(1) == 'room' ) bg-primary @endif">

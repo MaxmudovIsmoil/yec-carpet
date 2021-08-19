@@ -64,7 +64,6 @@ class CatalogController extends Controller
 
         }
 
-
         return view('catalog.index', compact('title', 'rooms', 'qualities', 'array', 'room_id', 'quality_id', 'products'));
     }
 

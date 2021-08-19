@@ -75,11 +75,8 @@ class Catalog2Controller extends Controller
         }
         else {
             $image = $request->file('image');
-            if  ($paspt) {
-
-                $image_new_name = 'product'.rand() .'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('uploaded/product2/'), $image_new_name);
-            }
+            $image_new_name = 'product'.rand() .'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('uploaded/product2/'), $image_new_name);
 
 
             try {

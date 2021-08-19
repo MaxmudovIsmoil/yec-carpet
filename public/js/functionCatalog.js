@@ -192,7 +192,7 @@ $(document).ready(function() {
 
 
         $.ajax({
-            type: method,
+            type:method,
             url: url,
             data: formData,
             contentType: false,

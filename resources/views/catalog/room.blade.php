@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="btn-group col-lg-10 col-md-9 col-10 mt-1 mb-1 pr-md-2">
                             <a href="{{ route('catalog.index') }}" class="btn btn-primary">Xonalar</a>
-                            <a href="{{ route('catalog.quality', [$quality_id]) }}" class="btn btn-secondary">Sifatlar</a>
+                            <a href="{{ route('catalog2.index', ['id' => $quality_id]) }}" class="btn btn-secondary">Katalog</a>
                         </div>
                         <div class="col-lg-2 col-md-3 col-2 pl-0 pl-sm-3 pl-md-0">
                             <a href="" class="btn btn-info btnAdd mt-1 pl-2 pr-2" data-toggle="modal" data-target="#add-model">Qo'shish</a>
