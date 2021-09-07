@@ -128,7 +128,7 @@ class UserController extends Controller
 
     public function edit_password()
     {
-        $title = "Tahrirlash oynasi";
+        $title = "Parolni o'zgartirish";
 
         $user = Auth::user();
         $username = $user->username;

@@ -6,7 +6,10 @@
         <div class="col-sm-12">
             <div class="card border-secondary">
                 <div class="card-header">
-                    <a href="{{ route('catalog.index') }}" class="btn btn-info">Orqaga qaytish</a>
+                    <a href="{{ route('catalog.index') }}" class="btn btn-info">
+                        <svg class="c-icon mr-2 mt-0">
+                            <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-arrow-thick-left') }}"></use>
+                        </svg> Orqaga qaytish</a>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('user.update_password') }}" method="POST" id="js_update_password_form" class="form-group">

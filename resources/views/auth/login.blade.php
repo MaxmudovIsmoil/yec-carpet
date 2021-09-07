@@ -9,7 +9,11 @@
                 <div class="card p-2">
                     <div class="card-body pt-2">
                         <form action="{{ route('login') }}" method="POST">
-                            <h1 class="text-center mb-4">{{ __('Kirish oynasi') }}</h1>
+                            <h1 class="text-center mb-3">{{ __('Kirish oynasi') }}</h1>
+                            @error('username')
+                                <p class="p-0 mt-1 mb-1 text-center text-danger text-bold">{{'Login yoki parolda xatolik bor'}}</p>
+                            @enderror
+
                             @csrf
 
                             <div role="group" class="form-group">
@@ -22,11 +26,11 @@
                                         </span>
                                     </div>
                                     <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Login" required>
-                                    @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+{{--                                    @error('username')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                            <strong>{{ $message }}</strong>--}}
+{{--                                        </span>--}}
+{{--                                    @enderror--}}
                                 </div>
 
                             </div>
@@ -40,13 +44,13 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Parol" required>
+                                    <input type="password" class="form-control @error('username') is-invalid @enderror" name="password" placeholder="Parol" required>
 
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+{{--                                    @error('password')--}}
+{{--                                        <span class="invalid-feedback" role="alert">--}}
+{{--                                            <strong>{{ $message }}</strong>--}}
+{{--                                        </span>--}}
+{{--                                    @enderror--}}
                                 </div>
                             </div>
 
