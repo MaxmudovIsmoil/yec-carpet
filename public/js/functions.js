@@ -1,17 +1,17 @@
 $(document).ready(function() {
 
     $('#dataTable_staff').DataTable({
-        paging: false,
-        pageLength: 100,
-        lengthChange: true,
+        paging: true,
+        pageLength: 10,
+        lengthChange: false,
         searching: true,
         ordering: true,
-        info: false,
+        info: true,
         autoWidth: false,
         language: {
             search: "",
             searchPlaceholder: " Izlash...",
-            // sLengthMenu: "Кўриш _MENU_ тадан",
+            sLengthMenu: "Кўриш _MENU_ тадан",
             sInfo: "Ko'rish _START_ dan _END_ gacha _TOTAL_ jami",
             emptyTable: "Ma'lumot mavjud emas",
         }
@@ -59,7 +59,7 @@ $(document).ready(function() {
     /** ./Room & quality add modal **/
 
 
-    /** Rooms & quality edit btn show form in dataTable **/
+    /** Rooms btn show form in dataTable **/
     $('.js_edit_btn').click(function(e){
         e.preventDefault();
 
@@ -89,7 +89,7 @@ $(document).ready(function() {
     /** ./Rooms & quality edit btn in dataTable **/
 
 
-    /** Rooms & quality edit btn save in dataTable **/
+    /** Rooms btn save in dataTable **/
     $('.js_edit_from').on('submit', function (e) {
         e.preventDefault();
 
@@ -116,7 +116,7 @@ $(document).ready(function() {
     /** ./Rooms & quality edit btn save in dataTable **/
 
 
-    /** Rooms & quality edit btn back hide form in dataTable **/
+    /** Rooms edit btn back hide form in dataTable **/
     $('.js_edit_btn_back').click(function (e) {
         e.preventDefault();
 
@@ -145,6 +145,42 @@ $(document).ready(function() {
 
     /************************************ ./ Room & Quality ****************************************/
 
+    /**########################################### Quality ###################################################**/
+
+    /*** Quality edit **/
+        $('.js_quality_edit_modal_from').on('submit', function(e) {
+            e.preventDefault()
+
+            let url = $(this).attr('action');
+            let method = $(this).attr('method');
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: url,
+                type: method,
+                dataType: "json",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: (response) => {
+                    console.log(response)
+
+                    if (response.success) {
+                        location.reload();
+                    }
+
+                    if (response.error) {
+                        $('#edit-model .modal-body').css('padding-bottom','0px')
+                        $(document).find('#message').html('<span >'+response.message[0]+'</span><span style="margin-left: 18%">'+response.message[1]+'</span>');
+                    }
+                },
+                error: (response) => {
+                    console.log('error: ', response)
+                }
+            });
+
+        });
+    /**########################################### Quality ###################################################**/
 
     /** Hodim qoshish, Modal add user **/
     $(document).on('submit', '.js_user_add_modal_form', function (e) {

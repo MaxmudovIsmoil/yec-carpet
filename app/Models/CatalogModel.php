@@ -16,7 +16,6 @@ class CatalogModel extends Model
     protected $fillable = [
         'articul',
         'code',
-        'price',
         'room_image',
         'quality_image',
         'parent_id',

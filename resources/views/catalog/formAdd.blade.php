@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row">
-                <div class="col-md-6 mb-2">
+                <div class="col-md-6 mb-4">
                     <label for="quality_id">Sifat</label>
                     <select type="text" name="quality_id" id="quality_id" class="form-control">
                         <option value="">---</option>
@@ -12,22 +12,17 @@
                     </select>
                     <span class="valid-feedback text-danger room_id_error"></span>
                 </div>
-                <div class="col-md-6 mb-2">
+                <div class="col-md-6 mb-4">
                     <label for="articul">Artikul</label>
                     <input type="text" name="articul" id="articul" class="form-control">
                     <span class="valid-feedback text-danger articul_error"></span>
                 </div>
-                <div class="col-md-6 mb-2">
+                <div class="col-md-6 mb-4">
                     <label for="code">Kodi</label>
                     <input type="text" name="code" id="code" class="form-control">
                     <span class="valid-feedback text-danger code_error"></span>
                 </div>
-                <div class="col-md-6 mb-2">
-                    <label for="price">Narx</label>
-                    <input type="text" name="price" id="price" class="form-control">
-                    <span class="valid-feedback text-danger price_error"></span>
-                </div>
-                <div class="col-md-12 col-12">
+                <div class="col-md-6 mb-4">
                     <label for="room_image">Xona rasmi</label>
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" name="room_image" id="room_image">

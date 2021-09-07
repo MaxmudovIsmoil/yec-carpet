@@ -35,7 +35,14 @@ class Catalog2Controller extends Controller
 
         $qualities = QualityModel::all();
 
-        $products = Product2::where('quality_id', 'LIKE', '%'.$quality_id.'%')->orderBy('created_at', 'desc')->paginate(20);
+
+        $products = DB::table('products2 As p')
+            ->select('p.*', 'q.price')
+            ->leftJoin('qualities As q', 'q.id','=', 'p.quality_id')
+            ->where('p.quality_id', $quality_id)
+            ->orderBy('p.created_at', 'desc')
+            ->paginate(20);
+
 
         if ($products) {
 
@@ -83,7 +90,6 @@ class Catalog2Controller extends Controller
                 Product2::create([
                     'articul'   => $request->articul,
                     'code'      => $request->code,
-                    'price'     => $request->price,
                     'room_id'   => '',
                     'quality_id'=> $request->quality_id,
                     'description'=> '',
@@ -140,7 +146,6 @@ class Catalog2Controller extends Controller
             $rules = array(
                 'articul'   => 'required|string',
                 'code'      => 'required|string',
-                'price'     => 'required|string',
                 'quality_id'=> 'integer',
             );
             $error = Validator::make($request->all(), $rules);
@@ -154,7 +159,6 @@ class Catalog2Controller extends Controller
         $form_data = array(
             'articul'   => $request->articul,
             'code'      => $request->code,
-            'price'     => $request->price,
             'quality_id'=> $request->quality_id,
             'changed'   => time(),
             'image'     => $image_name,
@@ -171,7 +175,6 @@ class Catalog2Controller extends Controller
         return array(
             'articul'   => 'required|string',
             'code'      => 'required|string',
-            'price'     => 'required|string',
             'quality_id'=> 'integer',
             'image'     => 'required|image|mimes:jpeg,png,jpg',
         );

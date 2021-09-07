@@ -33,8 +33,8 @@ class QualityController extends Controller
         $room_id = $rooms[0]->id;
 
         $quality = QualityModel::all();
-        $i = 1;
-        return view('quality.index', compact('title', 'quality', 'i', 'room_id'));
+
+        return view('quality.index', compact('title', 'quality', 'room_id'));
     }
 
 
@@ -48,6 +48,7 @@ class QualityController extends Controller
         $validation =  Validator::make($request->all(), [
             'name'  => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,svg',
+            'price' => 'required|string',
         ]);
 
         if ($validation->passes()) {
@@ -60,6 +61,7 @@ class QualityController extends Controller
                 QualityModel::create([
                     'name' => $request->post('name'),
                     'image' => $image_new_name,
+                    'price' => $request->post('price'),
                     'changed'   => time(),
                 ]);
 
@@ -83,7 +85,6 @@ class QualityController extends Controller
             ]);
         }
 
-
     }
 
     /**
@@ -98,8 +99,9 @@ class QualityController extends Controller
 
         if ($image != '') {
             $rules = array(
-                'name'      => 'required|string',
+                'name'  => 'required|string',
                 'image' => 'required|image|mimes:jpeg,png,jpg,svg',
+                'price' => 'required|string',
             );
             $error = Validator::make($request->all(), $rules);
 
@@ -113,7 +115,8 @@ class QualityController extends Controller
         }
         else{
             $rules = array(
-                'name'      => 'required|string',
+                'name'  => 'required|string',
+                'price' => 'required|string',
             );
             $error = Validator::make($request->all(), $rules);
 
@@ -125,13 +128,13 @@ class QualityController extends Controller
         $form_data = array(
             'name'      => $request->name,
             'image'     => $image_name,
+            'price'     => $request->price,
             'changed'   => time()
         );
 
         QualityModel::whereId($request->id)->update($form_data);
 
-        return response()->json(['success' => 'Data is successful updated']);
-
+        return response()->json(['success' => true, 'message' => 'Data is successful updated']);
 
     }
 

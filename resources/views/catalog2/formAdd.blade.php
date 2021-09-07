@@ -20,12 +20,7 @@
             <input type="text" name="code" id="code" class="form-control">
             <span class="valid-feedback text-danger code_error"></span>
         </div>
-        <div class="col-md-6 mb-2">
-            <label for="price">Narx</label>
-            <input type="text" name="price" id="price" class="form-control">
-            <span class="valid-feedback text-danger price_error"></span>
-        </div>
-        <div class="col-md-12 col-12">
+        <div class="col-md-6">
             <label for="image">Sifat rasmi</label>
             <div class="custom-file">
                 <input type="file" class="custom-file-input" name="image" id="image" multiple="true">

@@ -64,7 +64,13 @@ class ApiController extends Controller
     public function api_product(Request $request)
     {
 
-        $products = CatalogModel::all();
+//        $products = CatalogModel::all();
+        $products = DB::table('products As p')
+            ->select('p.*', 'q.price')
+            ->leftJoin('qualities As q', 'q.id','=', 'p.quality_id')
+            ->orderBy('p.created_at', 'desc')
+            ->get();
+
         $array = array();
         foreach($products as $k => $p) {
             $array[$k]['id'] = $p->id;
@@ -93,7 +99,13 @@ class ApiController extends Controller
     public function api_product2(Request $request)
     {
 
-        $products = Product2::all();
+//        $products = Product2::all();
+        $products = DB::table('products2 As p')
+            ->select('p.*', 'q.price')
+            ->leftJoin('qualities As q', 'q.id','=', 'p.quality_id')
+            ->orderBy('p.created_at', 'desc')
+            ->get();
+
         $array = array();
         foreach($products as $k => $p) {
             $array[$k]['id'] = $p->id;

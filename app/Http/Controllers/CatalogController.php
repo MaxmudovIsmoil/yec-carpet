@@ -40,8 +40,12 @@ class CatalogController extends Controller
         $quality_id = $qualities[0]->id;
 
 
-        $products = CatalogModel::where('room_id', 'LIKE', '%'.$room_id.'%')->orderBy('created_at', 'desc')->paginate(20);
-
+        $products = DB::table('products As p')
+                    ->select('p.*', 'q.price')
+                    ->leftJoin('qualities As q', 'q.id','=', 'p.quality_id')
+                    ->where('p.room_id', $room_id)
+                    ->orderBy('p.created_at', 'desc')
+                    ->paginate(20);
 
         if ($products) {
 
@@ -64,7 +68,6 @@ class CatalogController extends Controller
 
         }
 
-
         return view('catalog.index', compact('title', 'rooms', 'qualities', 'array', 'room_id', 'quality_id', 'products'));
     }
 
@@ -80,7 +83,12 @@ class CatalogController extends Controller
         $quality_id = $qualities[0]->id;
 
 
-        $products = CatalogModel::where('room_id','LIKE', '%'.$room_id.'%')->orderBy('created_at', 'desc')->paginate(20);
+        $products = DB::table('products As p')
+                    ->select('p.*', 'q.price')
+                    ->leftJoin('qualities As q', 'q.id','=', 'p.quality_id')
+                    ->where('p.room_id', $room_id)
+                    ->orderBy('p.created_at', 'desc')
+                    ->paginate(20);
 
         $array = array();
         foreach($products as $k => $p) {
@@ -112,7 +120,13 @@ class CatalogController extends Controller
         $qualities = QualityModel::all();
         $quality_id = $id;
 
-        $products = CatalogModel::where('quality_id', $quality_id)->orderBy('created_at', 'desc')->paginate(20);
+        $products = DB::table('products As p')
+                    ->select('p.*', 'q.price')
+                    ->leftJoin('qualities As q', 'q.id','=', 'p.quality_id')
+                    ->where('p.room_id', $quality_id)
+                    ->orderBy('p.created_at', 'desc')
+                    ->paginate(20);
+
 
         $array = array();
         foreach($products as $k => $p) {
@@ -169,7 +183,6 @@ class CatalogController extends Controller
                 CatalogModel::create([
                     'articul'   => $request->articul,
                     'code'      => $request->code,
-                    'price'     => $request->price,
                     'room_id'   => $room_ids,
                     'quality_id'=> $request->quality_id,
                     'description'=> '',
@@ -227,7 +240,6 @@ class CatalogController extends Controller
             $rules = array(
                 'articul'   => 'required|string',
                 'code'      => 'required|string',
-                'price'     => 'required|string',
                 'quality_id'=> 'integer',
             );
             $error = Validator::make($request->all(), $rules);
@@ -250,7 +262,6 @@ class CatalogController extends Controller
         $form_data = array(
             'articul'   => $request->articul,
             'code'      => $request->code,
-            'price'     => $request->price,
             'room_id'   => $room_ids,
             'quality_id'=> $request->quality_id,
             'changed'   => time(),
@@ -268,7 +279,6 @@ class CatalogController extends Controller
         return array(
             'articul'   => 'required|string',
             'code'      => 'required|string',
-            'price'     => 'required|string',
             'quality_id'=> 'integer',
             'room_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         );

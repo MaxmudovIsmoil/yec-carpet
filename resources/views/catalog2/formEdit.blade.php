@@ -21,12 +21,7 @@
             <input type="text" name="code" id="code{{$product['id']}}" class="form-control" value="{{ $product['code'] }}">
             <span class="valid-feedback text-danger code_error"></span>
         </div>
-        <div class="col-md-6 mb-2">
-            <label for="price{{$product['id']}}">Narx</label>
-            <input type="text" name="price" id="price{{$product['id']}}" class="form-control" value="{{ $product['price'] }}">
-            <span class="valid-feedback text-danger price_error"></span>
-        </div>
-        <div class="col-md-12 col-12">
+        <div class="col-md-6">
             <label for="image{{$product['id']}}">Sifat rasmi</label>
             <div class="custom-file">
                 <input type="hidden" name="image_hidden" value="{{ $product['image'] }}">
