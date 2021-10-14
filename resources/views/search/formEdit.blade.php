@@ -26,22 +26,18 @@
                                     </select>
                                     <span class="valid-feedback text-danger room_id_error"></span>
                                 </div>
-                                <div class="col-md-6 mb-2">
+                                <div class="col-md-6 mb-3">
                                     <label for="articul{{ $p['id'] }}">Artikul</label>
                                     <input type="text" name="articul" id="articul{{ $p['id'] }}" class="form-control" value="{{ $p['articul'] }}">
                                     <span class="valid-feedback text-danger articul_error"></span>
                                 </div>
-                                <div class="col-md-6 mb-2">
+                                <div class="col-md-6 mb-3">
                                     <label for="code{{$p['id']}}">Kodi</label>
                                     <input type="text" name="code" id="code{{$p['id']}}" class="form-control" value="{{ $p['code'] }}">
                                     <span class="valid-feedback text-danger code_error"></span>
                                 </div>
-                                <div class="col-md-6 mb-2">
-                                    <label for="price{{$p['id']}}">Narx</label>
-                                    <input type="text" name="price" id="price{{$p['id']}}" class="form-control" value="{{ $p['price'] }}">
-                                    <span class="valid-feedback text-danger price_error"></span>
-                                </div>
-                                <div class="col-md-12 col-12">
+
+                                <div class="col-md-6">
                                     <label for="room_image{{$p['id']}}">Xona rasmi</label>
                                     <div class="custom-file">
                                         <input type="hidden" name="room_image_hidden" value="{{ $p['room_image'] }}">

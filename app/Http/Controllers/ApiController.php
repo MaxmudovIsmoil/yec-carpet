@@ -7,12 +7,22 @@ use App\Models\TermPaymentModel;
 use Illuminate\Http\Request;
 use App\Models\RoomModel;
 use App\Models\QualityModel;
-use App\Models\CatalogModel;
 use Illuminate\Support\Facades\DB;
+use App\Models\User as UserModel;
+use Illuminate\Support\Facades\Hash;
 
 
 class ApiController extends Controller
 {
+
+//    public function __construct($login, $password)
+//    {
+//        $user = UserModel::where('status', 'salesman')->get();
+//        if (($user[0]->unsername == $login) && ($user[0]->passord == Hash::make($password) ) ) {
+//
+//        }
+//    }
+
     /**
      * get name, image and path in rooms.
      *

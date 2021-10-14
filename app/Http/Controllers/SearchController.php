@@ -48,12 +48,14 @@ class SearchController extends Controller
 
         if ($request->search_type == 'room')
         {
-            $products = DB::table('products')
-                ->select('*')
-                ->orWhere('articul', 'like', '%' . $search . '%')
-                ->orWhere('code', 'like', '%' . $search . '%')
-                ->orWhere('price', 'like', '%' . $search . '%')
+            $products = DB::table('products AS p')
+                ->select('p.*' ,'q.price')
+                ->leftJoin('qualities AS q', 'q.id', '=', 'p.quality_id')
+                ->orWhere('p.articul', 'like', '%' . $search . '%')
+                ->orWhere('p.code', 'like', '%' . $search . '%')
                 ->get();
+
+
             if ($products) {
                 $array = array();
                 foreach ($products as $k => $p) {
@@ -74,11 +76,11 @@ class SearchController extends Controller
             }
         }
         else {
-            $products = DB::table('products2')
-                ->select('*')
-                ->orWhere('articul', 'like', '%' . $search . '%')
-                ->orWhere('code', 'like', '%' . $search . '%')
-                ->orWhere('price', 'like', '%' . $search . '%')
+            $products = DB::table('products2 AS p2')
+                ->select('p2.*', 'q.price')
+                ->leftJoin('qualities As q', 'q.id', '=', 'p2.quality_id')
+                ->orWhere('p2.articul', 'like', '%' . $search . '%')
+                ->orWhere('p2.code', 'like', '%' . $search . '%')
                 ->get();
 
             if ($products) {

@@ -46,7 +46,7 @@
                                     <th>Rasm</th>
                                     <th>Articul</th>
                                     <th>Kodi</th>
-                                    <th>Narxi</th>
+                                    <th>Narx</th>
                                     <th width="15%" class="text-right">Harakatlar</th>
                                 </tr>
                             </thead>

@@ -65,7 +65,13 @@
                 </svg> <span>Muddatli to'lov</span>
             </a>
         </li>
-
+        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'salesman' ) bg-primary @endif">
+            <a class="c-sidebar-nav-link @if( Request::segment(1) == 'salesman' ) text-white @endif" href="{{ route('salesman.index') }}">
+                <svg class="c-icon mr-2">
+                    <use xlink:href="{{ asset('/icons/sprites/free.svg#cil-screen-smartphone') }}"></use>
+                </svg> <span>Sotuvchilar</span>
+            </a>
+        </li>
 
 {{--        <li class="c-sidebar-nav-item @if( Request::segment(1) == 'user' ) bg-primary @endif">--}}
 {{--            <a class="c-sidebar-nav-link @if( Request::segment(1) == 'user' ) text-white @endif" href="{{ route('user.index') }}">--}}
@@ -188,6 +194,8 @@
 <script src="{{ asset('js/functionCatalog.js?'.time()) }}"></script>
 
 <script src="{{ asset('js/functions.js?'.time()) }}"></script>
+
+@yield('script')
 
 <div class=""></div>
 </body>
