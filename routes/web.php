@@ -9,6 +9,7 @@ use App\Http\Controllers\TermPaymentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SalesmanController;
+use App\Http\Controllers\ApiLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,3 +127,5 @@ Route::get('/salesman', [SalesmanController::class, 'index'])->name('salesman.in
 Route::put('/salesman/update/{id}', [SalesmanController::class, 'update'])->name('salesman.update');
 /******************** Salesman ************************/
 
+
+Route::get('/login/{username}/{password}', [ApiLoginController::class, 'login'])->name('api.login');
